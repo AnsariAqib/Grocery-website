@@ -1,0 +1,385 @@
+/* ==========================================================================
+   JAY TULSI — ADMIN PANEL THEME
+   Overrides Filament v4's default shell so the panel reads as the same
+   product as the storefront. Plain CSS on purpose: this repo has no Tailwind,
+   and the file is injected only into panel pages via a HEAD_END render hook,
+   so the public site is never affected.
+
+   Tokens mirror :root in the site's style.css. Dark mode is switched off in
+   AdminPanelProvider, so there are no .dark variants to maintain here.
+   ========================================================================== */
+
+:root {
+  --jt-orange: #E4652E;
+  --jt-orange-hover: #C9541F;
+  --jt-orange-tint: #FDF3ED;
+  --jt-navy: #061427;
+  --jt-navy-light: #0B1E38;
+  --jt-navy-card: #0F2544;
+
+  --jt-text: #0F172A;
+  --jt-muted: #64748B;
+  --jt-border: #E2E8F0;
+  --jt-border-light: #F1F5F9;
+  --jt-page-bg: #F8FAFC;
+
+  --jt-shadow-sm: 0 2px 8px rgba(6, 20, 39, 0.04);
+  --jt-shadow-md: 0 8px 24px rgba(6, 20, 39, 0.08);
+  --jt-shadow-orange: 0 6px 16px rgba(228, 101, 46, 0.24);
+
+  --jt-radius: 12px;
+  --jt-radius-sm: 8px;
+
+  --jt-font-heading: 'Outfit', ui-sans-serif, system-ui, sans-serif;
+  --jt-ease: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* --------------------------------------------------------------------------
+   1. SHELL
+   -------------------------------------------------------------------------- */
+
+.fi-body {
+  background-color: var(--jt-page-bg);
+  color: var(--jt-text);
+}
+
+/* --------------------------------------------------------------------------
+   2. SIDEBAR — navy, matching the site footer and B2B cards
+   -------------------------------------------------------------------------- */
+
+.fi-sidebar-header .fi-logo {
+  font-family: var(--jt-font-heading);
+  font-weight: 800;
+  font-size: 1rem;
+  letter-spacing: -0.01em;
+  color: var(--jt-navy);
+}
+
+/* --------------------------------------------------------------------------
+   3. TOPBAR
+   -------------------------------------------------------------------------- */
+
+.fi-topbar > nav,
+.fi-topbar-ctn {
+  background-color: #FFFFFF;
+  border-bottom: 1px solid var(--jt-border);
+  box-shadow: none;
+}
+
+.fi-topbar {
+  --fi-topbar-height: 4rem;
+}
+
+.fi-breadcrumbs {
+  font-size: 0.8125rem;
+}
+
+.fi-breadcrumbs .fi-breadcrumbs-item-label {
+  color: var(--jt-muted);
+  font-weight: 600;
+}
+
+.fi-topbar-item-btn:hover,
+.fi-user-menu-trigger:hover {
+  background-color: var(--jt-border-light);
+}
+
+/* --------------------------------------------------------------------------
+   4. PAGE HEADINGS
+   -------------------------------------------------------------------------- */
+
+.fi-header-heading {
+  font-family: var(--jt-font-heading);
+  font-size: 1.5rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--jt-navy);
+}
+
+.fi-header-subheading {
+  font-size: 0.875rem;
+  color: var(--jt-muted);
+}
+
+/* --------------------------------------------------------------------------
+   5. CARDS & SECTIONS
+   -------------------------------------------------------------------------- */
+
+.fi-sc-section,
+.fi-wi-stats-overview-stat,
+.fi-ta-ctn,
+.fi-fo-component-ctn > .fi-sc-section {
+  border: 1px solid var(--jt-border);
+  border-radius: var(--jt-radius);
+  box-shadow: var(--jt-shadow-sm);
+}
+
+.fi-sc-section {
+  background-color: #FFFFFF;
+}
+
+.fi-sc-section-label,
+.fi-sc-section > header .fi-sc-section-label {
+  font-family: var(--jt-font-heading);
+  font-size: 0.9375rem;
+  font-weight: 700;
+  color: var(--jt-navy);
+}
+
+.fi-sc-section-description {
+  font-size: 0.8125rem;
+  color: var(--jt-muted);
+}
+
+/* Section icons pick up the brand orange instead of Filament's grey */
+.fi-sc-section .fi-sc-section-label-ctn .fi-icon,
+.fi-sc-section > header svg:first-child {
+  color: var(--jt-orange);
+}
+
+/* --------------------------------------------------------------------------
+   6. FORMS
+   -------------------------------------------------------------------------- */
+
+.fi-fo-field-label,
+.fi-fo-field-label-content {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: #334155;
+}
+
+.fi-input-wrp {
+  border-radius: var(--jt-radius-sm);
+  box-shadow: none;
+  border: 1px solid var(--jt-border);
+  transition: border-color 0.18s var(--jt-ease), box-shadow 0.18s var(--jt-ease);
+}
+
+.fi-input-wrp:hover {
+  border-color: #CBD5E1;
+}
+
+/* One focus treatment for every control, in brand orange */
+.fi-input-wrp:focus-within {
+  border-color: var(--jt-orange);
+  box-shadow: 0 0 0 3px rgba(228, 101, 46, 0.14);
+  outline: none;
+}
+
+.fi-input {
+  font-size: 0.875rem;
+  min-height: 2.5rem;
+}
+
+.fi-fo-field-wrp-hint,
+.fi-fo-field-wrp-helper-text,
+.fi-helper-text {
+  font-size: 0.75rem;
+  color: var(--jt-muted);
+  line-height: 1.5;
+}
+
+/* File upload dropzone: brand-tinted so it reads as an action, not a gap */
+.fi-fo-file-upload .filepond--drop-label {
+  border-radius: var(--jt-radius-sm);
+  background-color: var(--jt-orange-tint);
+  border: 1px dashed #F3D2BF;
+  color: #9A3412;
+}
+
+.fi-fo-file-upload .filepond--panel-root {
+  background-color: transparent;
+}
+
+/* --------------------------------------------------------------------------
+   7. BUTTONS
+   -------------------------------------------------------------------------- */
+
+.fi-btn {
+  font-weight: 700;
+  font-size: 0.8125rem;
+  border-radius: var(--jt-radius-sm);
+  transition: background-color 0.18s var(--jt-ease), box-shadow 0.18s var(--jt-ease),
+              transform 0.18s var(--jt-ease);
+}
+
+.fi-btn.fi-color-primary:not(.fi-link) {
+  box-shadow: var(--jt-shadow-orange);
+}
+
+.fi-btn.fi-color-primary:not(.fi-link):hover {
+  transform: translateY(-1px);
+}
+
+.fi-btn.fi-color-primary:not(.fi-link):active {
+  transform: none;
+}
+
+/* --------------------------------------------------------------------------
+   8. TABLES
+   -------------------------------------------------------------------------- */
+
+.fi-ta-ctn {
+  background-color: #FFFFFF;
+  overflow: hidden;
+}
+
+.fi-ta-header-cell {
+  background-color: #FBFCFE;
+  border-bottom: 1px solid var(--jt-border);
+}
+
+.fi-ta-header-cell,
+.fi-ta-header-cell .fi-ta-header-cell-label {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #64748B;
+  white-space: nowrap;
+}
+
+.fi-ta-row {
+  transition: background-color 0.15s var(--jt-ease);
+}
+
+.fi-ta-row:hover {
+  background-color: var(--jt-orange-tint);
+}
+
+.fi-ta-cell {
+  font-size: 0.8438rem;
+}
+
+.fi-ta-cell .fi-ta-text-item-label {
+  color: #334155;
+}
+
+/* Media thumbnails: square with a hairline ring so transparent PNGs
+   (most of this catalogue) still have a visible edge */
+.fi-ta-image {
+  border-radius: 6px;
+  border: 1px solid var(--jt-border);
+  background-color: #FFFFFF;
+  object-fit: contain;
+  padding: 2px;
+}
+
+.fi-badge {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  border-radius: 999px;
+}
+
+/* Empty states read as guidance rather than an error */
+.fi-ta-empty-state-heading {
+  font-family: var(--jt-font-heading);
+  font-weight: 700;
+  color: var(--jt-navy);
+}
+
+.fi-ta-empty-state-description {
+  color: var(--jt-muted);
+}
+
+.fi-ta-empty-state-icon-bg {
+  background-color: var(--jt-orange-tint);
+}
+
+.fi-ta-empty-state-icon-bg .fi-icon,
+.fi-ta-empty-state-icon-bg svg {
+  color: var(--jt-orange);
+}
+
+/* Reorder handles should look draggable */
+.fi-ta-reorder-handle {
+  color: #94A3B8;
+  cursor: grab;
+}
+
+.fi-ta-reorder-handle:active {
+  cursor: grabbing;
+}
+
+/* --------------------------------------------------------------------------
+   9. STAT WIDGETS
+   -------------------------------------------------------------------------- */
+
+.fi-wi-stats-overview-stat {
+  background-color: #FFFFFF;
+  padding: 1.25rem;
+}
+
+.fi-wi-stats-overview-stat-label {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--jt-muted);
+}
+
+.fi-wi-stats-overview-stat-value {
+  font-family: var(--jt-font-heading);
+  font-size: 1.875rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--jt-navy);
+  line-height: 1.1;
+}
+
+.fi-wi-stats-overview-stat-description {
+  font-size: 0.75rem;
+  color: var(--jt-muted);
+}
+
+/* --------------------------------------------------------------------------
+   10. MODALS & DROPDOWNS
+   -------------------------------------------------------------------------- */
+
+.fi-modal-window {
+  border-radius: var(--jt-radius);
+  box-shadow: var(--jt-shadow-md);
+}
+
+.fi-dropdown-panel {
+  border-radius: var(--jt-radius-sm);
+  border: 1px solid var(--jt-border);
+  box-shadow: var(--jt-shadow-md);
+}
+
+/* --------------------------------------------------------------------------
+   11. SPA SKELETON — shimmer effect for loading states
+   The skeleton markup lives in custom-loader.blade.php. These rules give
+   the shimmer blocks a brand-matched sweep animation.
+   -------------------------------------------------------------------------- */
+
+/* Shimmer is now defined inline in custom-loader.blade.php to work on
+   initial page load before admin.css is parsed. We only add overrides here. */
+
+/* Skeleton cards get the same border treatment as real Filament cards */
+.fi-spa-skeleton-instance .bg-white {
+  border-color: var(--jt-border) !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .shimmer-bg { animation: none !important; }
+  .shimmer-bg::after { animation: none !important; }
+  .animate-fade-in { animation: none !important; }
+  .fi-btn.fi-color-primary:not(.fi-link):hover { transform: none; }
+}
+
+/* --------------------------------------------------------------------------
+   12. NARROW SCREENS
+   -------------------------------------------------------------------------- */
+
+@media (max-width: 1024px) {
+  .fi-header-heading {
+    font-size: 1.25rem;
+  }
+
+  .fi-wi-stats-overview-stat-value {
+    font-size: 1.5rem;
+  }
+}
+

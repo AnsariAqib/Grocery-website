@@ -118,6 +118,30 @@
           </div>
         </div>
       </section>
+
+      <!-- Organic & Pesticide-Free Banner (Right below Our Best Sellers) -->
+      <section v-if="sIdx === 1" class="fl-organic-banner-section">
+        <div class="container">
+          <div class="fl-organic-banner-card">
+            <div class="fl-organic-overlay"></div>
+            <div class="fl-organic-copy">
+              <div class="fl-organic-head-row">
+                <i class="fa-solid fa-leaf fl-organic-leaf"></i>
+                <h2 class="fl-organic-title">
+                  Organic &amp;<br>
+                  Pesticide-Free Produce
+                </h2>
+              </div>
+              <p class="fl-organic-sub">
+                Naturally grown. Healthier for you and your family.
+              </p>
+              <Link href="/products" class="fl-organic-btn">
+                Explore Organic Range <i class="fa-solid fa-arrow-right"></i>
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
     </template>
 
     <!-- 3. Meet Our Popular Farmers Section -->
@@ -898,6 +922,103 @@ function addToCart(product) {
   height: auto;
   object-fit: contain;
   display: block;
+}
+
+/* Organic & Pesticide-Free Banner */
+.fl-organic-banner-section {
+  padding: 24px 0 36px;
+  background: #FFFFFF;
+  font-family: 'Plus Jakarta Sans', var(--font-main), sans-serif;
+}
+
+.fl-organic-banner-card {
+  position: relative;
+  border-radius: 20px;
+  min-height: 235px;
+  padding: 34px 48px;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  background-color: #133B1D;
+  background-image: url('/assets/organic-banner-bg.jpg');
+  background-size: cover;
+  background-position: right center;
+  box-shadow: 0 12px 30px rgba(20, 83, 45, 0.14);
+}
+
+.fl-organic-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(95deg, rgba(16, 54, 24, 0.96) 0%, rgba(19, 62, 28, 0.88) 42%, rgba(19, 62, 28, 0.18) 72%, rgba(19, 62, 28, 0) 100%);
+  pointer-events: none;
+}
+
+.fl-organic-copy {
+  position: relative;
+  z-index: 2;
+  max-width: 520px;
+}
+
+.fl-organic-head-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  margin-bottom: 10px;
+}
+
+.fl-organic-leaf {
+  font-size: 28px;
+  color: #4ADE80;
+  margin-top: 6px;
+  flex-shrink: 0;
+}
+
+.fl-organic-title {
+  font-size: 36px;
+  font-weight: 800;
+  color: #FFFFFF;
+  line-height: 1.15;
+  margin: 0;
+  letter-spacing: -0.02em;
+}
+
+.fl-organic-sub {
+  font-size: 15px;
+  color: rgba(255, 255, 255, 0.88);
+  margin: 0 0 22px 0;
+}
+
+.fl-organic-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: #469B25;
+  color: #FFFFFF;
+  font-size: 14px;
+  font-weight: 700;
+  padding: 11px 24px;
+  border-radius: 9999px;
+  text-decoration: none;
+  box-shadow: 0 6px 16px rgba(70, 155, 37, 0.35);
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.fl-organic-btn:hover {
+  background: #3A841E;
+  transform: translateY(-1px);
+}
+
+@media (max-width: 768px) {
+  .fl-organic-banner-card {
+    padding: 28px 24px;
+    background-position: center;
+  }
+  .fl-organic-overlay {
+    background: linear-gradient(180deg, rgba(16, 54, 24, 0.92) 0%, rgba(16, 54, 24, 0.72) 100%);
+  }
+  .fl-organic-title {
+    font-size: 26px;
+  }
 }
 
 @media (max-width: 900px) {
@@ -2072,6 +2193,103 @@ function addToCart(product) {
 @media (max-width: 1140px) {
   .fl-showcase-grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+/* Organic & Pesticide-Free Banner */
+.fl-organic-banner-section {
+  padding: 24px 0 36px;
+  background: #FFFFFF;
+  font-family: 'Plus Jakarta Sans', var(--font-main), sans-serif;
+}
+
+.fl-organic-banner-card {
+  position: relative;
+  border-radius: 20px;
+  min-height: 235px;
+  padding: 34px 48px;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  background-color: #133B1D;
+  background-image: url('/assets/organic-banner-bg.jpg');
+  background-size: cover;
+  background-position: right center;
+  box-shadow: 0 12px 30px rgba(20, 83, 45, 0.14);
+}
+
+.fl-organic-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(95deg, rgba(16, 54, 24, 0.96) 0%, rgba(19, 62, 28, 0.88) 42%, rgba(19, 62, 28, 0.18) 72%, rgba(19, 62, 28, 0) 100%);
+  pointer-events: none;
+}
+
+.fl-organic-copy {
+  position: relative;
+  z-index: 2;
+  max-width: 520px;
+}
+
+.fl-organic-head-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  margin-bottom: 10px;
+}
+
+.fl-organic-leaf {
+  font-size: 28px;
+  color: #4ADE80;
+  margin-top: 6px;
+  flex-shrink: 0;
+}
+
+.fl-organic-title {
+  font-size: 36px;
+  font-weight: 800;
+  color: #FFFFFF;
+  line-height: 1.15;
+  margin: 0;
+  letter-spacing: -0.02em;
+}
+
+.fl-organic-sub {
+  font-size: 15px;
+  color: rgba(255, 255, 255, 0.88);
+  margin: 0 0 22px 0;
+}
+
+.fl-organic-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: #469B25;
+  color: #FFFFFF;
+  font-size: 14px;
+  font-weight: 700;
+  padding: 11px 24px;
+  border-radius: 9999px;
+  text-decoration: none;
+  box-shadow: 0 6px 16px rgba(70, 155, 37, 0.35);
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.fl-organic-btn:hover {
+  background: #3A841E;
+  transform: translateY(-1px);
+}
+
+@media (max-width: 768px) {
+  .fl-organic-banner-card {
+    padding: 28px 24px;
+    background-position: center;
+  }
+  .fl-organic-overlay {
+    background: linear-gradient(180deg, rgba(16, 54, 24, 0.92) 0%, rgba(16, 54, 24, 0.72) 100%);
+  }
+  .fl-organic-title {
+    font-size: 26px;
   }
 }
 

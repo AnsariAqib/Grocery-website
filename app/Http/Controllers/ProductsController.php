@@ -83,20 +83,20 @@ class ProductsController extends Controller
 
         if (filled($variety) && filled($category)) {
             return [
-                'title' => "{$variety} in {$category} | Jay Tulsi Agency & Vinayak Stores",
+                'title' => "{$variety} in {$category} | VIZORA FOODS",
                 'description' => "Browse our {$variety} range under {$category} — brands, pack sizes and prices stocked at Jay Tulsi Agency & Vinayak Stores, Surat. Retail and bulk B2B supply.",
             ];
         }
 
         if (filled($category)) {
             return [
-                'title' => "{$category} Products & Price List | Jay Tulsi Agency & Vinayak Stores",
+                'title' => "{$category} Products & Price List | VIZORA FOODS",
                 'description' => "Complete {$category} range with brands, pack sizes and prices at Jay Tulsi Agency & Vinayak Stores, Surat — for homes, retailers and bulk business supply.",
             ];
         }
 
         return [
-            'title' => 'Product Catalogue & Price List | Jay Tulsi Agency & Vinayak Stores',
+            'title' => 'Product Catalogue & Price List | VIZORA FOODS',
             'description' => 'Explore complete product price list across supermarket grocery, dairy, packaged food, home cleaning, stationery, and electronics in Surat.',
         ];
     }

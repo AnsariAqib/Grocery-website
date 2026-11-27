@@ -14,9 +14,9 @@
           </p>
 
           <div class="hero-cta-group">
-            <a href="#categories" class="hero-btn-primary">
+            <Link href="/products" class="hero-btn-primary">
               Shop Fresh Now <i class="fa-solid fa-arrow-right"></i>
-            </a>
+            </Link>
             <div class="hero-delivery-pill">
               <i class="fa-solid fa-truck-fast hero-delivery-icon"></i>
               <div class="hero-delivery-text">
@@ -29,7 +29,7 @@
 
         <!-- Right Transparent PNG -->
         <div class="hero-visual">
-          <img src="/assets/hero-farmlokal-crate.png" alt="FarmLokal Fresh Produce Crate" class="hero-png-img">
+          <img src="/assets/hero-farmlokal-crate.png" alt="VIZORA FOODS Fresh Produce Crate" class="hero-png-img">
         </div>
       </div>
     </div>
@@ -37,6 +37,8 @@
 </template>
 
 <script setup>
+import { Link } from '@inertiajs/vue3';
+
 defineProps({
   slides: {
     type: Array,

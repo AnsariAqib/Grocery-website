@@ -15,7 +15,7 @@ class AboutController extends Controller
     {
         return Inertia::render('About', [
             'meta' => [
-                'title' => 'About Us | Jay Tulsi Agency & Vinayak Stores Surat',
+                'title' => 'About Us | VIZORA FOODS',
                 'description' => 'Building trust since 1984 — Jay Tulsi Agency, Vinayak Stores and Kalptaru serve 50,000+ retail customers and 1,000+ businesses across Gujarat with groceries, FMCG, housekeeping and industrial supplies.',
             ],
 

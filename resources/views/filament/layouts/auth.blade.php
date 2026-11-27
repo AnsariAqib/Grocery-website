@@ -28,18 +28,18 @@
             width: 55%;
             padding: 5rem 4rem;
             color: #FFFFFF;
-            background-image: url('{{ asset("assets/grocery-login.jpg") }}');
+            background-image: url('{{ asset("assets/mega-sale-banner-bg.jpg") }}');
             background-size: cover;
             background-position: center;
             box-sizing: border-box;
         }
 
-        /* Dark Overlay to blur background and increase text readability */
+        /* Dark Forest Green Overlay for crisp readability */
         .auth-sidebar::before {
             content: '';
             position: absolute;
             inset: 0;
-            background: linear-gradient(135deg, rgba(6, 20, 39, 0.94) 0%, rgba(6, 20, 39, 0.82) 60%, rgba(228, 101, 46, 0.3) 100%);
+            background: linear-gradient(135deg, rgba(15, 58, 29, 0.95) 0%, rgba(20, 83, 45, 0.88) 58%, rgba(63, 156, 30, 0.48) 100%);
             backdrop-filter: blur(2px);
             z-index: 1;
         }
@@ -87,19 +87,19 @@
         }
 
         .auth-brand-name {
-            font-family: 'Outfit', sans-serif;
-            font-size: 2.5rem;
-            font-weight: 850;
-            letter-spacing: -0.02em;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 2.4rem;
+            font-weight: 800;
+            letter-spacing: -0.025em;
             color: #FFFFFF;
             line-height: 1;
         }
 
         .auth-brand-sub {
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             font-weight: 700;
-            letter-spacing: 0.15em;
-            color: #E4652E;
+            letter-spacing: 0.16em;
+            color: #65D138;
             text-transform: uppercase;
             margin-top: 0.45rem;
         }
@@ -111,17 +111,17 @@
         }
 
         .auth-headline {
-            font-family: 'Outfit', sans-serif;
-            font-size: 3.25rem;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 3.1rem;
             font-weight: 800;
-            line-height: 1.2;
+            line-height: 1.16;
             color: #FFFFFF;
             margin: 0;
-            letter-spacing: -0.01em;
+            letter-spacing: -0.025em;
         }
 
         .auth-headline span {
-            color: #E4652E;
+            color: #65D138;
         }
 
         .auth-subheadline {
@@ -164,12 +164,12 @@
         }
 
         .auth-form-title {
-            font-family: 'Outfit', sans-serif;
-            font-size: 2.5rem;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 2.4rem;
             font-weight: 800;
-            color: #061427 !important;
+            color: #14532D !important;
             margin: 0;
-            letter-spacing: -0.015em;
+            letter-spacing: -0.025em;
         }
 
         .auth-form-desc {
@@ -205,10 +205,10 @@
         }
 
         .auth-mobile-title {
-            font-family: 'Outfit', sans-serif;
-            font-size: 2.25rem;
-            font-weight: 850;
-            color: #061427;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 2.1rem;
+            font-weight: 800;
+            color: #14532D;
             margin: 0;
             line-height: 1;
         }
@@ -217,7 +217,7 @@
             font-size: 0.8rem;
             font-weight: 700;
             letter-spacing: 0.15em;
-            color: #E4652E;
+            color: #3F9C1E;
             text-transform: uppercase;
             margin-top: 0.4rem;
         }
@@ -297,9 +297,9 @@
 
         .fi-auth-form .fi-input-wrp:focus-within,
         .dark .fi-auth-form .fi-input-wrp:focus-within {
-            border-color: #E4652E !important;
+            border-color: #3F9C1E !important;
             background-color: #FFFFFF !important;
-            box-shadow: 0 0 0 3px rgba(228, 101, 46, 0.15) !important;
+            box-shadow: 0 0 0 3px rgba(63, 156, 30, 0.16) !important;
         }
 
         /* Input values and typed text color (Strictly dark text color) */
@@ -323,7 +323,7 @@
             border-radius: 0.375rem !important;
             border: 1.5px solid #CBD5E1 !important;
             background-color: #FFFFFF !important;
-            color: #E4652E !important; /* checked state fill color */
+            color: #3F9C1E !important; /* checked state fill color */
             width: 1.25rem !important;
             height: 1.25rem !important;
             cursor: pointer !important;
@@ -334,15 +334,15 @@
 
         .fi-auth-form input[type="checkbox"]:checked,
         .dark .fi-auth-form input[type="checkbox"]:checked {
-            background-color: #E4652E !important;
-            border-color: #E4652E !important;
+            background-color: #3F9C1E !important;
+            border-color: #3F9C1E !important;
         }
 
         .fi-auth-form input[type="checkbox"]:focus,
         .dark .fi-auth-form input[type="checkbox"]:focus {
-            --tw-ring-color: #E4652E !important;
-            border-color: #E4652E !important;
-            box-shadow: 0 0 0 3px rgba(228, 101, 46, 0.15) !important;
+            --tw-ring-color: #3F9C1E !important;
+            border-color: #3F9C1E !important;
+            box-shadow: 0 0 0 3px rgba(63, 156, 30, 0.16) !important;
         }
 
         /* Input Placeholders Styling (Guarantees placeholders show up in slate gray color) */
@@ -387,9 +387,9 @@
         .fi-auth-form .fi-link,
         .dark .fi-auth-form a, 
         .dark .fi-auth-form .fi-link {
-            font-family: 'Outfit', sans-serif !important;
+            font-family: 'Plus Jakarta Sans', sans-serif !important;
             font-weight: 600 !important;
-            color: #E4652E !important;
+            color: #14532D !important;
             text-decoration: none !important;
         }
 
@@ -397,23 +397,23 @@
         .fi-auth-form .fi-link:hover,
         .dark .fi-auth-form a:hover,
         .dark .fi-auth-form .fi-link:hover {
-            color: #C9541F !important;
+            color: #3F9C1E !important;
             text-decoration: underline !important;
         }
 
-        /* Pill Rounded Orange Sign In Button */
+        /* Pill Rounded Green Sign In Button */
         .fi-auth-form button[type="submit"],
         .fi-auth-form .fi-btn {
-            font-family: 'Outfit', sans-serif !important;
+            font-family: 'Plus Jakarta Sans', sans-serif !important;
             font-weight: 700 !important;
             font-size: 1rem !important;
             letter-spacing: 0.01em !important;
             border-radius: 9999px !important;
             padding: 12px 24px !important;
-            background: linear-gradient(135deg, #E4652E 0%, #FF7A00 100%) !important;
+            background: linear-gradient(135deg, #14532D 0%, #3F9C1E 100%) !important;
             border: none !important;
             color: #FFFFFF !important;
-            box-shadow: 0 4px 14px rgba(228, 101, 46, 0.3) !important;
+            box-shadow: 0 4px 14px rgba(20, 83, 45, 0.28) !important;
             transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1) !important;
             cursor: pointer !important;
             width: 100% !important;
@@ -425,14 +425,14 @@
         .fi-auth-form button[type="submit"]:hover,
         .fi-auth-form .fi-btn:hover {
             transform: translateY(-1.5px) !important;
-            box-shadow: 0 6px 18px rgba(228, 101, 46, 0.45) !important;
+            box-shadow: 0 6px 18px rgba(20, 83, 45, 0.38) !important;
             filter: brightness(1.05) !important;
         }
 
         .fi-auth-form button[type="submit"]:active,
         .fi-auth-form .fi-btn:active {
             transform: translateY(0) !important;
-            box-shadow: 0 2px 8px rgba(228, 101, 46, 0.3) !important;
+            box-shadow: 0 2px 8px rgba(20, 83, 45, 0.28) !important;
         }
 
         /* Clean remember-me checkbox alignment */
@@ -462,20 +462,23 @@
         <div class="auth-sidebar">
             <div class="auth-sidebar-content">
                 
-                <!-- Logo & Brand Header (Enlarged) -->
+                <!-- Logo & Brand Header -->
                 <div class="auth-logo-section">
-                    <div class="auth-logo-wrapper">
-                        <img src="{{ asset('assets/logo.png') }}" alt="Jay Tulsi Agency" class="auth-logo-img">
+                    <div class="auth-logo-wrapper" style="width: 72px; height: 72px; border-radius: 1.25rem;">
+                        <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#65D138" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/>
+                            <path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/>
+                        </svg>
                     </div>
                     <div class="auth-logo-text">
-                        <span class="auth-brand-name">JAY TULSI</span>
-                        <span class="auth-brand-sub">Vinayak Stores</span>
+                        <span class="auth-brand-name">VIZORA</span>
+                        <span class="auth-brand-sub">VIZORA FOODS</span>
                     </div>
                 </div>
 
                 <!-- Middle Headline -->
                 <div class="auth-headline-section">
-                    <h1 class="auth-headline">Manage your <span>retail</span> & <span>B2B</span> supply store.</h1>
+                    <h1 class="auth-headline">Manage your <span>fresh</span> &amp; <span>grocery</span> store.</h1>
                     <p class="auth-subheadline">
                         Securely manage product catalogues, category listings, promotional campaigns, store details, and view customer stats in real-time.
                     </p>
@@ -483,7 +486,7 @@
 
                 <!-- Footer Disclaimer -->
                 <div class="auth-footer">
-                    <p style="font-weight: 600; color: #FFFFFF;">&copy; {{ date('Y') }} Jay Tulsi Agency & Vinayak Stores.</p>
+                    <p style="font-weight: 600; color: #FFFFFF;">&copy; {{ date('Y') }} VIZORA FOODS. All rights reserved.</p>
                     <p>Authorized Personnel Only &bull; All Actions Are Logged</p>
                 </div>
 
@@ -496,11 +499,14 @@
 
                 <!-- Mobile Only Header -->
                 <div class="auth-mobile-header">
-                    <div class="auth-mobile-logo-wrapper">
-                        <img src="{{ asset('assets/logo.png') }}" alt="Jay Tulsi" class="auth-mobile-logo-img">
+                    <div class="auth-mobile-logo-wrapper" style="background: #EBF7E3; border-color: #DCECD3;">
+                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#14532D" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/>
+                            <path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/>
+                        </svg>
                     </div>
-                    <h2 class="auth-mobile-title">JAY TULSI</h2>
-                    <p class="auth-mobile-sub">Vinayak Stores</p>
+                    <h2 class="auth-mobile-title">VIZORA</h2>
+                    <p class="auth-mobile-sub">VIZORA FOODS</p>
                 </div>
 
                 <!-- Desktop Header -->

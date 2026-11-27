@@ -40,13 +40,10 @@ class AdminPanelProvider extends PanelProvider
             // that asks for the current password first. Rendered inside the
             // panel shell (isSimple: false) so the sidebar stays put.
             ->profile(isSimple: false)
-            ->brandName('Jay Tulsi Agency')
-            ->brandLogo(asset('assets/logo.png'))
-            ->brandLogoHeight('2.25rem')
-            ->favicon(asset('assets/logo.png'))
+            ->brandName('VIZORA FOODS')
+            ->favicon(asset('assets/farmlokal-favicon.svg'))
             ->colors([
-                // The site's brand orange (--primary-orange in style.css).
-                'primary' => Color::hex('#E4652E'),
+                'primary' => Color::hex('#3F9C1E'),
             ])
             // Matches the storefront body font; headings switch to Outfit in admin.css.
             ->font('Plus Jakarta Sans')

@@ -35,6 +35,7 @@ Route::get('/promotions', [PromotionsController::class, 'index'])->name('promoti
 Route::get('/contact', [ContactController::class, 'index'])->name('contact');
 Route::get('/cart', fn () => \Inertia\Inertia::render('Cart'))->name('cart');
 Route::get('/checkout', fn () => \Inertia\Inertia::render('Checkout'))->name('checkout');
+Route::get('/privacy-policy', fn () => \Inertia\Inertia::render('PrivacyPolicy'))->name('privacy-policy');
 // Master catalogue PDFs (retail | b2b), uploaded from the admin panel.
 Route::get('/catalogue/{type}/download', [CatalogueController::class, 'download'])->name('catalogue.download');
 Route::post('/inquiry', [InquiryController::class, 'store'])->name('inquiry.store');

@@ -15,7 +15,7 @@ class StoresController extends Controller
     {
         return Inertia::render('Stores', [
             'meta' => [
-                'title' => 'Our Stores & Outlets | Jay Tulsi Agency & Vinayak Stores',
+                'title' => 'Our Stores & Outlets | VIZORA FOODS',
                 'description' => 'Locate all 6 Jay Tulsi & Vinayak Stores store locations in Hazira, Icchapore, and Kavas, Surat, Gujarat.',
             ],
             'stores' => Store::active()->ordered()->get()->map(fn (Store $store) => [

@@ -63,7 +63,7 @@ class PromotionsController extends Controller
 
         return Inertia::render('Promotions', [
             'meta' => [
-                'title' => 'Promotions & Special Offers | Jay Tulsi Agency & Vinayak Stores',
+                'title' => 'Offers & Promotions | VIZORA FOODS',
                 'description' => 'Explore latest discount offers, supermarket ration combos, seasonal sales, and bulk buy B2B deals at Jay Tulsi Agency.',
             ],
             'groups' => $groups,

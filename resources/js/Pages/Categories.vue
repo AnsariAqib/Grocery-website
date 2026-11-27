@@ -43,7 +43,6 @@
               </div>
               <div class="fl-cat-card-foot">
                 <span class="fl-cat-card-name">{{ cat.name }}</span>
-                <i class="fa-solid fa-arrow-right fl-cat-card-arrow"></i>
               </div>
             </Link>
           </div>
@@ -120,14 +119,14 @@ const categoryColumns = computed(() => {
 const farmLokalCategories = [
   { name: 'Dairy, Bread & Eggs', image: '/assets/feat-2.jpg', href: '/products?category=Milk%20%26%20Beverages' },
   { name: 'Fresh Fruits & Vegetables', image: '/assets/fruits and veggies.png', href: '/products?category=Fresh%20Fruits%20%26%20Vegetables' },
-  { name: 'Atta, Rice & Dal', image: '/assets/cat-1.png', href: '/products?category=Grocery' },
-  { name: 'Masalas & Spices', image: '/assets/cat-2.png', href: '/products?category=Grocery' },
-  { name: 'Oils & Ghee', image: '/assets/cat-3.png', href: '/products?category=Grocery' },
-  { name: 'Dry Fruits & Seeds', image: '/assets/cat-4.png', href: '/products?category=Grocery' },
-  { name: 'Tea & Coffee', image: '/assets/cat-5.png', href: '/products?category=Milk%20%26%20Beverages' },
-  { name: 'Sauces & Spreads', image: '/assets/cat-6.png', href: '/products?category=Packaged%20Food' },
-  { name: 'Snacks & Bakery', image: '/assets/cat-7.png', href: '/products?category=Packaged%20Food' },
-  { name: 'Pickles & Chutney', image: '/assets/cat-8.png', href: '/products?category=Packaged%20Food' },
+  { name: 'Atta, Rice & Dal', image: '/assets/cat-1.jpg', href: '/products?category=Grocery' },
+  { name: 'Masalas & Spices', image: '/assets/cat-2.jpg', href: '/products?category=Grocery' },
+  { name: 'Oils & Ghee', image: '/assets/cat-3.jpg', href: '/products?category=Grocery' },
+  { name: 'Dry Fruits & Seeds', image: '/assets/cat-4.jpg', href: '/products?category=Grocery' },
+  { name: 'Tea & Coffee', image: '/assets/cat-5.jpg', href: '/products?category=Milk%20%26%20Beverages' },
+  { name: 'Sauces & Spreads', image: '/assets/cat-6.jpg', href: '/products?category=Packaged%20Food' },
+  { name: 'Snacks & Bakery', image: '/assets/cat-7.jpg', href: '/products?category=Packaged%20Food' },
+  { name: 'Pickles & Chutney', image: '/assets/cat-8.jpg', href: '/products?category=Packaged%20Food' },
   { name: 'Cold Drinks & Juices', image: '/assets/milk bevrages.png', href: '/products?category=Milk%20%26%20Beverages' },
   { name: 'Grocery Essentials', image: '/assets/feat-3.jpg', href: '/products?category=Grocery' },
   { name: 'Organic Staples', image: '/assets/grocery.PNG', href: '/products?category=Grocery' },
@@ -291,26 +290,32 @@ onMounted(() => {
 }
 
 .fl-cat-img-stage {
-  height: 120px;
+  width: 108px;
+  height: 108px;
+  border-radius: 50%;
+  background: #F3F8EF;
+  border: 1.5px solid #DCECD3;
+  box-shadow: 0 4px 12px rgba(20, 83, 45, 0.07);
+  overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: radial-gradient(circle, #E6F3DC 0%, rgba(230, 243, 220, 0) 70%);
-  margin-bottom: 12px;
+  margin: 0 auto 12px;
 }
 
 .fl-cat-img-stage img {
-  max-height: 108px;
-  max-width: 100%;
-  object-fit: contain;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
   display: block;
 }
 
 .fl-cat-card-foot {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 10px;
+  justify-content: center;
+  text-align: center;
 }
 
 .fl-cat-card-name {
@@ -318,17 +323,6 @@ onMounted(() => {
   font-weight: 700;
   color: #111827;
   line-height: 1.3;
-}
-
-.fl-cat-card-arrow {
-  font-size: 13px;
-  color: #14532D;
-  flex-shrink: 0;
-  transition: transform 0.2s ease;
-}
-
-.fl-cat-card:hover .fl-cat-card-arrow {
-  transform: translateX(3px);
 }
 
 @media (max-width: 1120px) {

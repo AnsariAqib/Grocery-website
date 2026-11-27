@@ -11,7 +11,7 @@
         $seo = \App\Support\Seo::forPage($page, request());
     @endphp
 
-    <title>FarmLokal | Fresh &bull; Local &bull; Organic Groceries</title>
+    <title>VIZORA FOODS | Fresh &bull; Local &bull; Organic Groceries</title>
     <meta name="description" content="Fresh groceries, daily essentials and farm-fresh produce delivered directly from local farmers to your doorstep.">
     <meta name="robots" content="{{ $seo['robots'] }}">
     <link rel="canonical" href="{{ $seo['canonical'] }}">

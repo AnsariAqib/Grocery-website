@@ -5,7 +5,7 @@
       
       <div class="modal-header-area">
         <h3 class="modal-title">Get in Touch with Us</h3>
-        <p class="modal-sub">Fill out the form below and our Jay Tulsi team will get back to you immediately.</p>
+        <p class="modal-sub">Fill out the form below and our VIZORA FOODS team will get back to you immediately.</p>
       </div>
 
       <!-- Set by a catalogue "Ask Now": names the card that opened the form. -->

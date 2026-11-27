@@ -18,9 +18,9 @@ use Illuminate\Support\Facades\Storage;
  */
 class Seo
 {
-    public const SITE_NAME = 'Jay Tulsi Agency & Vinayak Stores';
+    public const SITE_NAME = 'VIZORA FOODS';
 
-    public const DEFAULT_TITLE = 'Jay Tulsi Agency & Vinayak Stores | Retail & B2B Supply, Surat';
+    public const DEFAULT_TITLE = 'VIZORA FOODS | Fresh • Local • Organic Groceries';
 
     public const DEFAULT_DESCRIPTION = 'Supermarket chain and B2B commercial supply partner in Surat since 1984 — groceries, FMCG, dairy, housekeeping and industrial supplies for homes, businesses and institutions.';
 

@@ -28,7 +28,7 @@ class HomeController extends Controller
     {
         return Inertia::render('Home', [
             'meta' => [
-                'title' => 'Jay Tulsi Agency & Vinayak Stores | Retail & B2B Supply Surat',
+                'title' => 'VIZORA FOODS | Fresh • Local • Organic Groceries',
                 'description' => 'Surat\'s supermarket chain and authorised B2B supply partner since 1984 — groceries, dairy, FMCG, housekeeping and industrial supplies for homes, retailers, offices and institutions across Hazira, Icchapore and Kavas.',
             ],
             'heroSlides' => HeroSlide::active()->ordered()->get()->map(fn (HeroSlide $slide) => [

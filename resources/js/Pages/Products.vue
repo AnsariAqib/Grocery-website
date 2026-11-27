@@ -283,10 +283,10 @@
                   <button
                     type="button"
                     class="fl-shop-cart-btn"
-                    @click="openInquiryModal(item)"
+                    @click="handleCardCart(item)"
                   >
                     <i class="fa-solid fa-cart-shopping"></i>
-                    {{ needsPrice(item) ? 'Ask for Price' : 'Add to Cart' }}
+                    {{ needsPrice(item) ? 'Ask for Price' : (addedCardId === item.id ? 'Added!' : 'Add to Cart') }}
                   </button>
                 </div>
               </article>
@@ -370,6 +370,12 @@ import WhatsAppFloat from '@/Components/WhatsAppFloat.vue';
 import PromoPopup from '@/Components/PromoPopup.vue';
 import { useParallax } from '@/composables/useParallax';
 import { useCatalogues } from '@/composables/useCatalogues';
+import { useCart } from '@/composables/useCart';
+import { useCustomAlert } from '@/composables/useCustomAlert';
+
+const { addItem } = useCart();
+const { showSuccess } = useCustomAlert();
+const addedCardId = ref(null);
 
 const props = defineProps({
   products: Array,
@@ -1041,6 +1047,32 @@ watch(filteredProducts, () => {
 });
 
 /* --------------------------------------------------------------- inquiries */
+
+function handleCardCart(item) {
+  if (needsPrice(item)) {
+    openInquiryModal(item);
+    return;
+  }
+  const variant = currentVariant(item);
+  const packSize = variant?.size || item.packSize || '1 pack';
+  const rawPrice = priceOf(item);
+  const numericPrice = Number(String(rawPrice ?? '').replace(/[^0-9.]/g, '')) || 99;
+  addItem({
+    id: `${item.id}-${packSize}`,
+    name: item.name,
+    unit: packSize,
+    subtitle: `${item.brand || 'VIZORA FOODS'} • ${packSize}`,
+    price: numericPrice,
+    oldPrice: Math.round(numericPrice * 1.15),
+    off: item.badge || '15% OFF',
+    qty: 1,
+    image: item.image,
+  });
+  addedCardId.value = item.id;
+  setTimeout(() => {
+    if (addedCardId.value === item.id) addedCardId.value = null;
+  }, 1300);
+}
 
 function openBlankModal() {
   // Clears the product name and message left behind by an earlier "Ask Now".

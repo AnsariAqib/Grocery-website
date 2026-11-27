@@ -19,7 +19,7 @@ class ContactController extends Controller
 
         return Inertia::render('Contact', [
             'meta' => [
-                'title' => 'Contact Us | Jay Tulsi Agency & Vinayak Stores Surat',
+                'title' => 'Contact Us | VIZORA FOODS',
                 'description' => 'Talk to Jay Tulsi Agency & Vinayak Stores — retail store enquiries, B2B bulk supply quotations, store addresses and business details in Surat.',
             ],
             'stores' => Store::active()->ordered()->get()->map(fn (Store $store) => [

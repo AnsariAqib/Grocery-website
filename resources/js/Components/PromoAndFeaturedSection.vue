@@ -54,26 +54,30 @@
               :key="product.id"
               class="fl-showcase-card"
             >
-              <div class="fl-card-img-box">
-                <img :src="product.image" :alt="product.name" loading="lazy">
-              </div>
+              <Link :href="productHref(product)" class="fl-card-link">
+                <div class="fl-card-img-box">
+                  <img :src="product.image" :alt="product.name" loading="lazy">
+                </div>
+
+                <div class="fl-card-info">
+                  <h3 class="fl-card-title">{{ product.name }}</h3>
+                  <p class="fl-card-unit">{{ product.unit }}</p>
+
+                  <div class="fl-card-rating">
+                    <i class="fa-solid fa-star"></i>
+                    <strong>{{ product.rating }}</strong>
+                    <span>({{ product.reviews }} reviews)</span>
+                  </div>
+
+                  <div class="fl-card-price-row">
+                    <span class="fl-card-price">₹{{ product.price }}</span>
+                    <span class="fl-card-old">₹{{ product.oldPrice }}</span>
+                    <span class="fl-card-off">{{ product.off }}</span>
+                  </div>
+                </div>
+              </Link>
 
               <div class="fl-card-body">
-                <h3 class="fl-card-title">{{ product.name }}</h3>
-                <p class="fl-card-unit">{{ product.unit }}</p>
-
-                <div class="fl-card-rating">
-                  <i class="fa-solid fa-star"></i>
-                  <strong>{{ product.rating }}</strong>
-                  <span>({{ product.reviews }} reviews)</span>
-                </div>
-
-                <div class="fl-card-price-row">
-                  <span class="fl-card-price">₹{{ product.price }}</span>
-                  <span class="fl-card-old">₹{{ product.oldPrice }}</span>
-                  <span class="fl-card-off">{{ product.off }}</span>
-                </div>
-
                 <button
                   type="button"
                   class="fl-card-cart-btn"
@@ -92,10 +96,8 @@
       <section v-if="sIdx === 0" class="fl-mega-sale-section">
         <div class="container">
           <div class="fl-mega-sale-card">
+            <div class="fl-mega-overlay"></div>
             <div class="fl-mega-left">
-              <span class="fl-deal-pill">
-                <i class="fa-solid fa-bolt"></i> Today's Deal
-              </span>
               <h2 class="fl-mega-title">Mega Grocery Sale</h2>
               <p class="fl-mega-sub">Fresh essentials at special prices.</p>
 
@@ -111,10 +113,6 @@
                 Shop Now <i class="fa-solid fa-arrow-right"></i>
               </Link>
             </div>
-
-            <div class="fl-mega-right">
-              <img src="/assets/mega-grocery-basket.png" alt="Mega Grocery Sale" loading="lazy">
-            </div>
           </div>
         </div>
       </section>
@@ -125,13 +123,10 @@
           <div class="fl-organic-banner-card">
             <div class="fl-organic-overlay"></div>
             <div class="fl-organic-copy">
-              <div class="fl-organic-head-row">
-                <i class="fa-solid fa-leaf fl-organic-leaf"></i>
-                <h2 class="fl-organic-title">
-                  Organic &amp;<br>
-                  Pesticide-Free Produce
-                </h2>
-              </div>
+              <h2 class="fl-organic-title">
+                Organic &amp;<br>
+                Pesticide-Free Produce
+              </h2>
               <p class="fl-organic-sub">
                 Naturally grown. Healthier for you and your family.
               </p>
@@ -456,8 +451,8 @@ function shiftReviews(dir) {
 
 const faqs = [
   {
-    q: 'How does FarmLokal work?',
-    a: 'FarmLokal connects you directly with local farmers. You can browse fresh fruits, vegetables and daily essentials, place an order and get it delivered to your doorstep.',
+    q: 'How does VIZORA work?',
+    a: 'VIZORA FOODS connects you directly with local farmers. You can browse fresh fruits, vegetables and daily essentials, place an order and get it delivered to your doorstep.',
   },
   {
     q: 'Do you deliver in my area?',
@@ -480,6 +475,30 @@ const faqs = [
     a: 'Absolutely! Every fruit, vegetable, and pantry staple is sourced directly from trusted local farmers and quality-checked before packing.',
   },
 ];
+
+function slugify(name) {
+  return String(name || '')
+    .toLowerCase()
+    .trim()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '');
+}
+
+function productHref(product) {
+  const slug = slugify(product.name);
+  const params = new URLSearchParams({
+    name: product.name,
+    image: product.image,
+    price: String(product.price),
+    oldPrice: String(product.oldPrice),
+    unit: product.unit,
+    off: product.off,
+    rating: product.rating,
+    reviews: product.reviews,
+  });
+
+  return `/products/${slug}?${params.toString()}`;
+}
 
 function addToCart(product) {
   addItem(product);
@@ -704,11 +723,30 @@ function addToCart(product) {
   object-fit: cover;
 }
 
-.fl-card-body {
-  padding: 10px 4px 2px;
+.fl-card-link {
   display: flex;
   flex-direction: column;
   flex: 1;
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+}
+
+.fl-card-link:hover .fl-card-title {
+  color: #14532D;
+}
+
+.fl-card-info {
+  padding: 10px 4px 0;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.fl-card-body {
+  padding: 0 4px 2px;
+  display: flex;
+  flex-direction: column;
 }
 
 .fl-card-title {
@@ -800,55 +838,68 @@ function addToCart(product) {
   background-color: #0F4022;
 }
 
-/* Mega Grocery Sale Diagonal Banner */
+/* Mega Grocery Sale Full-Bleed Photographic Banner */
 .fl-mega-sale-section {
-  padding: 48px 0 32px;
+  padding: 40px 0 32px;
   background: #F6FAF2;
   font-family: 'Plus Jakarta Sans', var(--font-main), sans-serif;
 }
 
 .fl-mega-sale-card {
+  position: relative;
   border-radius: 20px;
-  background: linear-gradient(112deg, #FFFFFF 53%, #D3ECC4 53.2%);
-  box-shadow: 0 8px 28px rgba(20, 83, 45, 0.06);
+  height: 275px;
+  min-height: 275px;
+  padding: 36px 48px;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  padding: 34px 36px 34px 56px;
-  gap: 20px;
   overflow: hidden;
-  min-height: 330px;
+  background-color: #133B1D;
+  background-image: url('/assets/mega-sale-banner-bg.jpg');
+  background-size: cover;
+  background-position: right center;
+  box-shadow: 0 12px 30px rgba(20, 83, 45, 0.14);
+}
+
+.fl-mega-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(95deg, rgba(16, 54, 24, 0.96) 0%, rgba(19, 62, 28, 0.88) 44%, rgba(19, 62, 28, 0.18) 74%, rgba(19, 62, 28, 0) 100%);
+  pointer-events: none;
 }
 
 .fl-mega-left {
-  max-width: 580px;
+  position: relative;
+  z-index: 2;
+  max-width: 560px;
 }
 
 .fl-deal-pill {
   display: inline-flex;
   align-items: center;
   gap: 7px;
-  background-color: #DCF7B8;
-  color: #14532D;
-  font-size: 15px;
+  background-color: rgba(74, 222, 128, 0.18);
+  border: 1px solid rgba(74, 222, 128, 0.35);
+  color: #BBF7D0;
+  font-size: 13.5px;
   font-weight: 700;
-  padding: 7px 18px;
+  padding: 5px 14px;
   border-radius: 9999px;
-  margin-bottom: 14px;
+  margin-bottom: 12px;
 }
 
 .fl-mega-title {
-  font-size: 54px;
+  font-size: 46px;
   font-weight: 800;
-  color: #124E26;
-  line-height: 1.06;
+  color: #FFFFFF;
+  line-height: 1.08;
   margin: 0 0 10px 0;
-  letter-spacing: -0.03em;
+  letter-spacing: -0.025em;
 }
 
 .fl-mega-sub {
-  font-size: 20px;
-  color: #4B5563;
+  font-size: 17px;
+  color: rgba(255, 255, 255, 0.88);
   margin: 0 0 20px 0;
 }
 
@@ -861,67 +912,52 @@ function addToCart(product) {
 }
 
 .fl-mega-off-pill {
-  background-color: #E2F5C8;
+  background-color: #DCF7B8;
   color: #124E26;
-  font-size: 20px;
-  font-weight: 600;
-  padding: 8px 20px;
+  font-size: 16px;
+  font-weight: 700;
+  padding: 6px 16px;
   border-radius: 9999px;
 }
 
 .fl-mega-off-pill strong {
   font-weight: 800;
-  font-size: 22px;
+  font-size: 18px;
 }
 
 .fl-mega-sep {
   width: 1px;
-  height: 26px;
-  background-color: #D1D5DB;
+  height: 22px;
+  background-color: rgba(255, 255, 255, 0.28);
 }
 
 .fl-mega-date {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 700;
-  color: #1F2937;
+  color: #FFFFFF;
 }
 
 .fl-mega-btn {
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  background-color: #14532D;
+  background-color: #469B25;
   color: #FFFFFF;
-  font-size: 16px;
-  font-weight: 600;
-  padding: 13px 34px;
+  font-size: 14.5px;
+  font-weight: 700;
+  padding: 12px 28px;
   border-radius: 9999px;
   text-decoration: none;
+  box-shadow: 0 6px 16px rgba(70, 155, 37, 0.35);
   transition: background-color 0.2s ease, transform 0.2s ease;
 }
 
 .fl-mega-btn:hover {
-  background-color: #0F4022;
+  background-color: #3A841E;
   transform: translateY(-1px);
-}
-
-.fl-mega-right {
-  flex: 0 0 auto;
-  display: flex;
-  align-items: flex-end;
-  justify-content: flex-end;
-}
-
-.fl-mega-right img {
-  max-height: 310px;
-  max-width: 560px;
-  width: auto;
-  height: auto;
-  object-fit: contain;
-  display: block;
 }
 
 /* Organic & Pesticide-Free Banner */
@@ -934,8 +970,9 @@ function addToCart(product) {
 .fl-organic-banner-card {
   position: relative;
   border-radius: 20px;
-  min-height: 235px;
-  padding: 34px 48px;
+  height: 275px;
+  min-height: 275px;
+  padding: 36px 48px;
   display: flex;
   align-items: center;
   overflow: hidden;
@@ -956,36 +993,22 @@ function addToCart(product) {
 .fl-organic-copy {
   position: relative;
   z-index: 2;
-  max-width: 520px;
-}
-
-.fl-organic-head-row {
-  display: flex;
-  align-items: flex-start;
-  gap: 14px;
-  margin-bottom: 10px;
-}
-
-.fl-organic-leaf {
-  font-size: 28px;
-  color: #4ADE80;
-  margin-top: 6px;
-  flex-shrink: 0;
+  max-width: 580px;
 }
 
 .fl-organic-title {
-  font-size: 36px;
+  font-size: 46px;
   font-weight: 800;
   color: #FFFFFF;
-  line-height: 1.15;
-  margin: 0;
-  letter-spacing: -0.02em;
+  line-height: 1.08;
+  margin: 0 0 10px 0;
+  letter-spacing: -0.025em;
 }
 
 .fl-organic-sub {
-  font-size: 15px;
+  font-size: 17px;
   color: rgba(255, 255, 255, 0.88);
-  margin: 0 0 22px 0;
+  margin: 0 0 24px 0;
 }
 
 .fl-organic-btn {
@@ -994,9 +1017,9 @@ function addToCart(product) {
   gap: 10px;
   background: #469B25;
   color: #FFFFFF;
-  font-size: 14px;
+  font-size: 14.5px;
   font-weight: 700;
-  padding: 11px 24px;
+  padding: 12px 28px;
   border-radius: 9999px;
   text-decoration: none;
   box-shadow: 0 6px 16px rgba(70, 155, 37, 0.35);
@@ -1009,15 +1032,44 @@ function addToCart(product) {
 }
 
 @media (max-width: 768px) {
+  .fl-mega-sale-card,
   .fl-organic-banner-card {
-    padding: 28px 24px;
-    background-position: center;
+    height: auto;
+    min-height: 210px;
+    padding: 24px 20px;
+    background-position: right center;
   }
+  .fl-mega-overlay,
   .fl-organic-overlay {
-    background: linear-gradient(180deg, rgba(16, 54, 24, 0.92) 0%, rgba(16, 54, 24, 0.72) 100%);
+    background: linear-gradient(95deg, rgba(16, 54, 24, 0.94) 0%, rgba(16, 54, 24, 0.78) 58%, rgba(16, 54, 24, 0.22) 100%);
   }
+  .fl-mega-title,
   .fl-organic-title {
-    font-size: 26px;
+    font-size: 25px;
+  }
+  .fl-mega-sub,
+  .fl-organic-sub {
+    font-size: 13.5px;
+    margin-bottom: 14px;
+  }
+  .fl-mega-meta {
+    gap: 10px;
+    margin-bottom: 16px;
+  }
+  .fl-mega-off-pill {
+    font-size: 13px;
+    padding: 5px 12px;
+  }
+  .fl-mega-off-pill strong {
+    font-size: 14.5px;
+  }
+  .fl-mega-date {
+    font-size: 13px;
+  }
+  .fl-mega-btn,
+  .fl-organic-btn {
+    padding: 10px 20px;
+    font-size: 13px;
   }
 }
 
@@ -1025,8 +1077,7 @@ function addToCart(product) {
   .fl-mega-sale-card {
     flex-direction: column;
     align-items: flex-start;
-    padding: 28px 24px;
-    background: linear-gradient(180deg, #FFFFFF 60%, #D3ECC4 60.2%);
+    padding: 24px 20px;
   }
   .fl-mega-right {
     width: 100%;
@@ -1702,13 +1753,24 @@ function addToCart(product) {
   }
 }
 
-@media (max-width: 600px) {
+@media (max-width: 640px) {
   .fl-mandi-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 12px;
+    display: flex;
+    overflow-x: auto;
+    gap: 10px;
+    padding-bottom: 4px;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+  .fl-mandi-grid::-webkit-scrollbar {
+    display: none;
+  }
+  .fl-mandi-grid > * {
+    flex: 0 0 38%;
+    min-width: 128px;
   }
   .fl-mandi-title {
-    font-size: 24px;
+    font-size: 22px;
   }
 }
 
@@ -2180,13 +2242,31 @@ function addToCart(product) {
   }
 }
 
-@media (max-width: 600px) {
+@media (max-width: 640px) {
+  .fl-farmers-section {
+    padding: 28px 0;
+  }
   .fl-farmers-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 12px;
+    display: flex;
+    overflow-x: auto;
+    gap: 10px;
+    padding-bottom: 4px;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+  .fl-farmers-grid::-webkit-scrollbar {
+    display: none;
+  }
+  .fl-farmers-grid > * {
+    flex: 0 0 38%;
+    min-width: 136px;
+    height: 165px;
   }
   .fl-farmers-title {
-    font-size: 26px;
+    font-size: 18px;
+  }
+  .fl-farmers-sub {
+    font-size: 12.5px;
   }
 }
 
@@ -2206,8 +2286,9 @@ function addToCart(product) {
 .fl-organic-banner-card {
   position: relative;
   border-radius: 20px;
-  min-height: 235px;
-  padding: 34px 48px;
+  height: 275px;
+  min-height: 275px;
+  padding: 36px 48px;
   display: flex;
   align-items: center;
   overflow: hidden;
@@ -2228,36 +2309,22 @@ function addToCart(product) {
 .fl-organic-copy {
   position: relative;
   z-index: 2;
-  max-width: 520px;
-}
-
-.fl-organic-head-row {
-  display: flex;
-  align-items: flex-start;
-  gap: 14px;
-  margin-bottom: 10px;
-}
-
-.fl-organic-leaf {
-  font-size: 28px;
-  color: #4ADE80;
-  margin-top: 6px;
-  flex-shrink: 0;
+  max-width: 580px;
 }
 
 .fl-organic-title {
-  font-size: 36px;
+  font-size: 46px;
   font-weight: 800;
   color: #FFFFFF;
-  line-height: 1.15;
-  margin: 0;
-  letter-spacing: -0.02em;
+  line-height: 1.08;
+  margin: 0 0 10px 0;
+  letter-spacing: -0.025em;
 }
 
 .fl-organic-sub {
-  font-size: 15px;
+  font-size: 17px;
   color: rgba(255, 255, 255, 0.88);
-  margin: 0 0 22px 0;
+  margin: 0 0 24px 0;
 }
 
 .fl-organic-btn {
@@ -2266,9 +2333,9 @@ function addToCart(product) {
   gap: 10px;
   background: #469B25;
   color: #FFFFFF;
-  font-size: 14px;
+  font-size: 14.5px;
   font-weight: 700;
-  padding: 11px 24px;
+  padding: 12px 28px;
   border-radius: 9999px;
   text-decoration: none;
   box-shadow: 0 6px 16px rgba(70, 155, 37, 0.35);
@@ -2281,7 +2348,10 @@ function addToCart(product) {
 }
 
 @media (max-width: 768px) {
+  .fl-mega-sale-card,
   .fl-organic-banner-card {
+    height: auto;
+    min-height: 240px;
     padding: 28px 24px;
     background-position: center;
   }
@@ -2295,17 +2365,99 @@ function addToCart(product) {
 
 @media (max-width: 900px) {
   .fl-offers-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
-@media (max-width: 600px) {
+@media (max-width: 640px) {
+  .fl-offers-section {
+    padding: 10px 0 14px;
+  }
+  .fl-offers-grid {
+    display: flex;
+    overflow-x: auto;
+    gap: 10px;
+    padding-bottom: 4px;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+  .fl-offers-grid::-webkit-scrollbar {
+    display: none;
+  }
+  .fl-offer-card {
+    flex: 0 0 78%;
+    min-width: 240px;
+    min-height: 126px;
+    padding: 14px;
+  }
+  .fl-offer-title {
+    font-size: 16px;
+  }
+  .fl-showcase-section {
+    padding: 22px 0;
+  }
+  .fl-showcase-header {
+    margin-bottom: 14px;
+  }
+  .fl-showcase-sub {
+    font-size: 12.5px;
+  }
   .fl-showcase-grid {
+    display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 12px;
+    gap: 10px;
+  }
+  .fl-showcase-card {
+    padding: 8px;
+    border-radius: 12px;
+  }
+  .fl-card-img-box {
+    height: 118px;
+    border-radius: 9px;
+  }
+  .fl-card-info {
+    padding: 8px 2px 0;
+  }
+  .fl-card-title {
+    font-size: 13px;
+    line-height: 1.25;
+  }
+  .fl-card-unit {
+    font-size: 11px;
+    margin-bottom: 5px;
+  }
+  .fl-card-rating {
+    font-size: 11px;
+    margin-bottom: 6px;
+  }
+  .fl-card-price-row {
+    gap: 6px;
+    margin-bottom: 9px;
+  }
+  .fl-card-price {
+    font-size: 15px;
+  }
+  .fl-card-old {
+    font-size: 11.5px;
+  }
+  .fl-card-off {
+    font-size: 9.5px;
+    padding: 2px 6px;
+  }
+  .fl-card-body {
+    padding: 0 2px 2px;
+  }
+  .fl-card-cart-btn {
+    height: 34px;
+    font-size: 12.5px;
+    border-radius: 8px;
+    gap: 6px;
   }
   .fl-showcase-title {
-    font-size: 24px;
+    font-size: 20px;
+  }
+  .fl-showcase-view-all {
+    font-size: 12.5px;
   }
 }
 </style>

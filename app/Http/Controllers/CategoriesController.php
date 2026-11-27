@@ -16,7 +16,7 @@ class CategoriesController extends Controller
     {
         return Inertia::render('Categories', [
             'meta' => [
-                'title' => 'In-Store Categories | Jay Tulsi Agency & Vinayak Stores',
+                'title' => 'All Categories | VIZORA FOODS',
                 'description' => 'Explore complete in-store grocery, daily fresh produce, packaged food, dairy, home & kitchen, personal care, baby care, toys, luggage, and electronics.',
             ],
             'banner' => $this->banner(CategoryBanner::TYPE_STORE),
@@ -29,7 +29,7 @@ class CategoriesController extends Controller
     {
         return Inertia::render('B2bCategories', [
             'meta' => [
-                'title' => 'B2B Categories | Jay Tulsi Agency & Vinayak Stores',
+                'title' => 'B2B Categories | VIZORA FOODS',
                 'description' => 'Explore our complete B2B commercial supply categories including bulk groceries, institutional packaging, and corporate gifting solutions.',
             ],
             'banner' => $this->banner(CategoryBanner::TYPE_B2B),

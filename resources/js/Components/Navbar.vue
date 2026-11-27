@@ -2,8 +2,12 @@
   <header class="fl-header" :class="{ 'is-scrolled': isScrolled }">
     <!-- Row 1: Brand + Search + Location + Account + Cart -->
     <div class="container fl-header-top">
+      <button @click="isMobileMenuOpen = !isMobileMenuOpen" class="fl-mobile-toggle fl-mobile-toggle-left" aria-label="Toggle Menu">
+        <i class="fa-solid" :class="isMobileMenuOpen ? 'fa-xmark' : 'fa-bars'"></i>
+      </button>
+
       <Link href="/" class="fl-logo-block">
-        <span class="fl-logo-wordmark">FarmLokal<span class="fl-logo-dot">.</span></span>
+        <span class="fl-logo-wordmark">VIZORA<span class="fl-logo-dot">.</span></span>
         <span class="fl-logo-tagline">Fresh &bull; Local &bull; Organic</span>
       </Link>
 
@@ -63,15 +67,19 @@
 
       <!-- Right Actions: Deliver to + User + Cart -->
       <div class="fl-header-actions">
-        <button type="button" class="fl-location-btn" @click="$emit('openModal')">
+        <button type="button" class="fl-location-btn" @click="isLocationModalOpen = true">
           <i class="fa-solid fa-location-dot fl-loc-pin"></i>
           <span class="fl-loc-copy">
             <span class="fl-loc-label">Deliver to</span>
-            <span class="fl-loc-val">Select Location <i class="fa-solid fa-chevron-down"></i></span>
+            <span class="fl-loc-val">{{ locationLabel }} <i class="fa-solid fa-chevron-down"></i></span>
           </span>
         </button>
 
-        <Link href="/admin" class="fl-icon-btn" aria-label="Account">
+        <Link href="/promotions" class="fl-icon-btn fl-bell-btn" aria-label="Offers">
+          <i class="fa-regular fa-bell"></i>
+        </Link>
+
+        <Link href="/admin" class="fl-icon-btn fl-account-btn" aria-label="Account">
           <i class="fa-regular fa-user"></i>
         </Link>
 
@@ -79,10 +87,19 @@
           <i class="fa-solid fa-cart-shopping"></i>
           <span class="fl-cart-badge">{{ totalCount }}</span>
         </Link>
+      </div>
+    </div>
 
-        <button @click="isMobileMenuOpen = !isMobileMenuOpen" class="fl-mobile-toggle" aria-label="Toggle Menu">
-          <i class="fa-solid" :class="isMobileMenuOpen ? 'fa-xmark' : 'fa-bars'"></i>
+    <!-- Mobile Location & Delivery ETA Strip -->
+    <div class="fl-mobile-loc-strip">
+      <div class="container fl-mobile-loc-inner">
+        <button type="button" class="fl-mobile-loc-btn" @click="isLocationModalOpen = true">
+          <i class="fa-solid fa-location-dot"></i>
+          <span>Deliver to: <strong>{{ locationLabel }}</strong> <i class="fa-solid fa-chevron-down"></i></span>
         </button>
+        <span class="fl-mobile-eta-pill">
+          <i class="fa-solid fa-truck-fast"></i> Pan India Delivery
+        </span>
       </div>
     </div>
 
@@ -100,9 +117,9 @@
           <Link href="/categories" class="fl-nav-link" :class="{ active: currentNav === 'categories' }" @click="clickedNav = 'categories'">Categories</Link>
           <Link href="/promotions" class="fl-nav-link" :class="{ active: currentNav === 'promotions' }" @click="clickedNav = 'promotions'">Offers</Link>
           <Link href="/products" class="fl-nav-link" :class="{ active: currentNav === 'products' }" @click="clickedNav = 'products'">New Arrivals</Link>
-          <Link href="/b2b-categories" class="fl-nav-link" :class="{ active: currentNav === 'b2b-categories' }" @click="clickedNav = 'b2b-categories'">Best Sellers</Link>
-          <Link href="/stores" class="fl-nav-link" :class="{ active: currentNav === 'stores' }" @click="clickedNav = 'stores'">Recipes</Link>
-          <Link href="/about" class="fl-nav-link" :class="{ active: currentNav === 'about' }" @click="clickedNav = 'about'">Meet Our Farmers</Link>
+          <Link href="/products" class="fl-nav-link" :class="{ active: currentNav === 'b2b-categories' }" @click="clickedNav = 'b2b-categories'">Best Sellers</Link>
+          <Link href="/categories" class="fl-nav-link" :class="{ active: currentNav === 'stores' }" @click="clickedNav = 'stores'">All Products</Link>
+          <Link href="/about" class="fl-nav-link" :class="{ active: currentNav === 'about' }" @click="clickedNav = 'about'">About Us</Link>
         </nav>
       </div>
     </div>
@@ -121,6 +138,14 @@
         </div>
       </div>
     </transition>
+
+    <LocationModal
+      :isOpen="isLocationModalOpen"
+      :currentCity="savedLocation.city"
+      :currentPincode="savedLocation.pincode"
+      @close="isLocationModalOpen = false"
+      @save="saveLocation"
+    />
   </header>
 </template>
 
@@ -130,6 +155,42 @@ import { Link, router } from '@inertiajs/vue3';
 import axios from 'axios';
 import { useSite } from '@/composables/useSite';
 import { useCart } from '@/composables/useCart';
+import LocationModal from '@/Components/LocationModal.vue';
+
+const LOCATION_STORAGE_KEY = 'vizora_location_v1';
+
+function loadSavedLocation() {
+  if (typeof window === 'undefined') return { city: '', pincode: '' };
+  try {
+    const raw = window.localStorage.getItem(LOCATION_STORAGE_KEY);
+    if (!raw) return { city: '', pincode: '' };
+    const parsed = JSON.parse(raw);
+    return {
+      city: String(parsed?.city || ''),
+      pincode: String(parsed?.pincode || ''),
+    };
+  } catch {
+    return { city: '', pincode: '' };
+  }
+}
+
+const isLocationModalOpen = ref(false);
+const savedLocation = ref(loadSavedLocation());
+
+const locationLabel = computed(() => {
+  if (savedLocation.value.city && savedLocation.value.pincode) {
+    return `${savedLocation.value.city}, ${savedLocation.value.pincode}`;
+  }
+  if (savedLocation.value.city) return savedLocation.value.city;
+  return 'Select Location';
+});
+
+function saveLocation({ city, pincode }) {
+  savedLocation.value = { city, pincode };
+  if (typeof window !== 'undefined') {
+    window.localStorage.setItem(LOCATION_STORAGE_KEY, JSON.stringify({ city, pincode }));
+  }
+}
 
 // The logo carries a version so a replaced file is not served from cache.
 const { site } = useSite();

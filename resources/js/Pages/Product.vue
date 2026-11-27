@@ -18,41 +18,51 @@
 
         <!-- Main 2-Column Product Detail (No right badges, No Check Delivery, No Heart) -->
         <div class="fl-pd-grid">
-          <!-- LEFT: Vertical Different Images Column + Main Image -->
-          <div class="fl-pd-gallery">
-            <div class="fl-pd-thumbs-left">
-              <button
-                v-for="(thumb, i) in galleryThumbs"
-                :key="i"
-                type="button"
-                class="fl-pd-thumb-card"
-                :class="{ active: i === activeThumbIdx }"
-                :aria-label="thumb.label"
-                @click="selectThumb(i)"
-              >
-                <img :src="thumb.src" :alt="thumb.label">
-              </button>
+          <!-- LEFT: Vertical Different Images Column + Main Image + Description -->
+          <div class="fl-pd-left-col">
+            <div class="fl-pd-gallery">
+              <div class="fl-pd-thumbs-left">
+                <button
+                  v-for="(thumb, i) in galleryThumbs"
+                  :key="i"
+                  type="button"
+                  class="fl-pd-thumb-card"
+                  :class="{ active: i === activeThumbIdx }"
+                  :aria-label="thumb.label"
+                  @click="selectThumb(i)"
+                >
+                  <img :src="thumb.src" :alt="thumb.label">
+                </button>
+              </div>
+
+              <div class="fl-pd-main-frame">
+                <button
+                  type="button"
+                  class="fl-pd-photo-btn"
+                  :aria-label="`Open ${product.name} full size`"
+                  @click="lightboxIdx = photoIndex"
+                >
+                  <img :src="displayedImage" :alt="product.name">
+                </button>
+
+                <template v-if="galleryThumbs.length > 1">
+                  <button type="button" class="fl-pd-arrow prev" aria-label="Previous photo" @click="stepGallery(-1)">
+                    <i class="fa-solid fa-chevron-left"></i>
+                  </button>
+                  <button type="button" class="fl-pd-arrow next" aria-label="Next photo" @click="stepGallery(1)">
+                    <i class="fa-solid fa-chevron-right"></i>
+                  </button>
+                </template>
+              </div>
             </div>
 
-            <div class="fl-pd-main-frame">
-              <button
-                type="button"
-                class="fl-pd-photo-btn"
-                :aria-label="`Open ${product.name} full size`"
-                @click="lightboxIdx = photoIndex"
-              >
-                <img :src="displayedImage" :alt="product.name">
-              </button>
-
-              <template v-if="galleryThumbs.length > 1">
-                <button type="button" class="fl-pd-arrow prev" aria-label="Previous photo" @click="stepGallery(-1)">
-                  <i class="fa-solid fa-chevron-left"></i>
-                </button>
-                <button type="button" class="fl-pd-arrow next" aria-label="Next photo" @click="stepGallery(1)">
-                  <i class="fa-solid fa-chevron-right"></i>
-                </button>
-              </template>
-            </div>
+            <!-- Description right below Product Image -->
+            <section class="fl-pd-info-section fl-pd-left-desc">
+              <h2 class="fl-pd-section-heading">Description</h2>
+              <p class="fl-pd-tab-text">
+                {{ product.description || `${product.name} is carefully sourced and quality-checked to bring authentic freshness and everyday goodness straight to your kitchen.` }}
+              </p>
+            </section>
           </div>
 
           <!-- RIGHT: Product Details -->
@@ -66,12 +76,12 @@
             <div class="fl-pd-rating-row">
               <span class="fl-pd-stars">
                 <i class="fa-solid fa-star"></i>
-                <strong>4.8</strong>
-                <span>(1,248 reviews)</span>
+                <strong>{{ product.rating || '4.8' }}</strong>
+                <span>({{ product.reviews || '1,248' }} reviews)</span>
               </span>
               <span class="fl-pd-verified">
                 <i class="fa-solid fa-circle-check"></i>
-                {{ brandLabel || 'Trusted FarmLokal Quality' }}
+                {{ brandLabel || 'Trusted VIZORA Quality' }}
               </span>
             </div>
 
@@ -114,29 +124,11 @@
               </div>
             </div>
 
-            <!-- Action Buttons -->
+            <!-- Action Button -->
             <div class="fl-pd-actions">
-              <button type="button" class="fl-pd-btn-primary" @click="openInquiryModal(product)">
+              <button type="button" class="fl-pd-btn-primary" @click="handleAddToCart">
                 <i class="fa-solid fa-cart-shopping"></i>
-                {{ needsPrice ? 'Ask for Price' : 'Add to Cart' }}
-              </button>
-
-              <a
-                v-if="whatsapp.enabled && whatsapp.number"
-                :href="whatsappHref"
-                target="_blank"
-                rel="noopener"
-                class="fl-pd-btn-outline"
-              >
-                <i class="fa-solid fa-bolt"></i> Buy Now
-              </a>
-              <button
-                v-else
-                type="button"
-                class="fl-pd-btn-outline"
-                @click="openInquiryModal(product)"
-              >
-                <i class="fa-solid fa-bolt"></i> Buy Now
+                {{ needsPrice ? 'Ask for Price' : (addedToCart ? 'Added to Cart!' : 'Add to Cart') }}
               </button>
             </div>
 
@@ -155,22 +147,13 @@
           </div>
         </div>
 
-        <!-- Stacked Sections: Description & Reviews -->
+        <!-- Reviews Section -->
         <div class="fl-pd-stacked-sections">
-          <!-- 1. Description -->
           <section class="fl-pd-info-section">
-            <h2 class="fl-pd-section-heading">Description</h2>
-            <p class="fl-pd-tab-text">
-              {{ product.description || `${product.name} is carefully sourced and quality-checked to bring authentic freshness and everyday goodness straight to your kitchen.` }}
-            </p>
-          </section>
-
-          <!-- 2. Reviews -->
-          <section class="fl-pd-info-section">
-            <h2 class="fl-pd-section-heading">Reviews (1,248)</h2>
+            <h2 class="fl-pd-section-heading">Reviews ({{ product.reviews || '1,248' }})</h2>
             <div class="fl-pd-reviews-summary">
               <div class="fl-pd-rev-score">
-                <strong>4.8</strong>
+                <strong>{{ product.rating || '4.8' }}</strong>
                 <div class="fl-pd-rev-stars">
                   <i class="fa-solid fa-star"></i>
                   <i class="fa-solid fa-star"></i>
@@ -178,10 +161,10 @@
                   <i class="fa-solid fa-star"></i>
                   <i class="fa-solid fa-star-half-stroke"></i>
                 </div>
-                <span>Based on 1,248 verified reviews</span>
+                <span>Based on {{ product.reviews || '1,248' }} verified reviews</span>
               </div>
               <p class="fl-pd-tab-text">
-                Rated <strong>4.8 / 5</strong> by verified buyers for consistent freshness, clean packaging, and reliable delivery.
+                Rated <strong>{{ product.rating || '4.8' }} / 5</strong> by verified buyers for consistent freshness, clean packaging, and reliable delivery.
               </p>
             </div>
           </section>
@@ -247,6 +230,7 @@ import WhatsAppFloat from '@/Components/WhatsAppFloat.vue';
 import PhotoLightbox from '@/Components/PhotoLightbox.vue';
 import { useParallax } from '@/composables/useParallax';
 import { useCustomAlert } from '@/composables/useCustomAlert';
+import { useCart } from '@/composables/useCart';
 
 const props = defineProps({
   product: { type: Object, required: true },
@@ -258,9 +242,11 @@ const props = defineProps({
 useParallax();
 
 const { showSuccess } = useCustomAlert();
+const { addItem } = useCart();
 
 const isModalOpen = ref(false);
 const inquiryPrefill = ref(null);
+const addedToCart = ref(false);
 
 /* ---------------------------------------------------------------- photos */
 
@@ -356,6 +342,39 @@ const activePrice = computed(() => activeVariant.value?.price ?? props.product.p
 const activePack = computed(() => activeVariant.value?.size ?? props.product.packSize);
 const activeSku = computed(() => activeVariant.value?.sku ?? props.product.sku);
 
+function parsePriceNumber(raw) {
+  const num = Number(String(raw ?? '').replace(/[^0-9.]/g, ''));
+  return Number.isFinite(num) && num > 0 ? num : 99;
+}
+
+function buildCartPayload() {
+  const numericPrice = parsePriceNumber(activePrice.value);
+  const pack = activePack.value || '1 pack';
+  return {
+    id: `${props.product.id || props.product.slug}-${pack}`,
+    name: props.product.name,
+    unit: pack,
+    subtitle: `${props.product.brand || 'VIZORA FOODS'} • ${pack}`,
+    price: numericPrice,
+    oldPrice: Math.round(numericPrice * 1.15),
+    off: props.product.badge || '15% OFF',
+    qty: qty.value || 1,
+    image: displayedImage.value || props.product.image,
+  };
+}
+
+function handleAddToCart() {
+  if (needsPrice.value) {
+    openInquiryModal(props.product);
+    return;
+  }
+  addItem(buildCartPayload());
+  addedToCart.value = true;
+  setTimeout(() => {
+    addedToCart.value = false;
+  }, 1500);
+}
+
 /** Same rule as the catalogue: "Amul/Mother Dairy" is three brands, spaced. */
 const brandLabel = computed(() => String(props.product.brand ?? '')
   .split(/\s*[/|;,]\s*/)
@@ -391,7 +410,7 @@ const shareUrl = ref('');
 const shareText = computed(() => [
   props.product.name,
   props.product.brand ? `by ${brandLabel.value}` : null,
-  '— Jay Tulsi Agency & Vinayak Stores',
+  '— VIZORA FOODS',
 ].filter(Boolean).join(' '));
 
 const shareLinks = computed(() => {
@@ -531,9 +550,20 @@ onUnmounted(() => {
 .fl-pd-grid {
   display: grid;
   grid-template-columns: 1.08fr 0.92fr;
-  gap: 52px;
+  gap: 36px;
   align-items: start;
-  margin-bottom: 40px;
+  margin-bottom: 36px;
+}
+
+.fl-pd-left-col {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.fl-pd-left-desc {
+  padding-top: 18px;
+  border-top: 1px solid #E5ECE1;
 }
 
 .fl-pd-gallery {
@@ -855,17 +885,15 @@ onUnmounted(() => {
   font-family: inherit;
 }
 
-/* Stacked Description, Product Details & Reviews */
+/* Reviews Section below Main Detail */
 .fl-pd-stacked-sections {
-  display: flex;
-  flex-direction: column;
-  gap: 28px;
+  border-top: 1px solid #E5ECE1;
+  padding-top: 26px;
   margin-bottom: 36px;
 }
 
 .fl-pd-info-section {
-  border-top: 1px solid #E5ECE1;
-  padding-top: 22px;
+  min-width: 0;
 }
 
 .fl-pd-section-heading {
@@ -880,8 +908,9 @@ onUnmounted(() => {
 
 .fl-pd-reviews-summary {
   display: flex;
+  flex-direction: row;
   align-items: center;
-  gap: 28px;
+  gap: 24px;
   flex-wrap: wrap;
 }
 
@@ -924,9 +953,8 @@ onUnmounted(() => {
 
 .fl-pd-tab-text {
   font-size: 14px;
-  line-height: 1.6;
+  line-height: 1.65;
   color: #4B5563;
-  max-width: 600px;
   margin: 0;
 }
 
@@ -1104,8 +1132,13 @@ onUnmounted(() => {
 }
 
 @media (max-width: 1024px) {
-  .fl-pd-grid {
+  .fl-pd-grid,
+  .fl-pd-stacked-sections {
     grid-template-columns: 1fr;
+  }
+  .fl-pd-main-frame {
+    height: 420px;
+    min-height: 0;
   }
   .fl-pd-related-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));

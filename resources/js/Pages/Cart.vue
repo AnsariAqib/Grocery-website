@@ -570,6 +570,7 @@ function proceedCheckout() {
 @media (max-width: 960px) {
   .fl-cart-grid {
     grid-template-columns: 1fr;
+    gap: 18px;
   }
   .fl-summary-card {
     position: static;
@@ -577,13 +578,88 @@ function proceedCheckout() {
 }
 
 @media (max-width: 640px) {
-  .fl-cart-row {
-    grid-template-columns: 64px 1fr;
-    gap: 12px;
+  .fl-cart-main {
+    padding: 18px 0 28px;
   }
-  .fl-cart-price-col,
-  .fl-cart-controls {
+  .fl-cart-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+    margin-bottom: 16px;
+  }
+  .fl-cart-title {
+    font-size: 22px;
+  }
+  .fl-cart-items-card,
+  .fl-summary-card {
+    padding: 14px;
+    border-radius: 14px;
+  }
+  .fl-cart-row {
+    grid-template-columns: 58px 1fr auto;
+    grid-template-rows: auto auto;
+    gap: 4px 10px;
+    padding: 12px 0;
+  }
+  .fl-cart-thumb {
+    grid-column: 1;
+    grid-row: 1 / 3;
+    width: 58px;
+    height: 58px;
+    align-self: center;
+  }
+  .fl-cart-item-info {
     grid-column: 2;
+    grid-row: 1;
+    min-width: 0;
+  }
+  .fl-cart-item-name {
+    font-size: 13.5px;
+    line-height: 1.25;
+  }
+  .fl-cart-item-sub {
+    font-size: 11px;
+    margin-bottom: 0;
+  }
+  .fl-cart-price-col {
+    grid-column: 2;
+    grid-row: 2;
+    text-align: left;
+  }
+  .fl-cart-price-line {
+    justify-content: flex-start;
+    gap: 6px;
+  }
+  .fl-cart-price {
+    font-size: 13.5px;
+  }
+  .fl-cart-old {
+    font-size: 11.5px;
+  }
+  .fl-cart-controls {
+    grid-column: 3;
+    grid-row: 1 / 3;
+    align-self: center;
+    gap: 6px;
+  }
+  .fl-cart-stepper {
+    height: 30px;
+    padding: 0 4px;
+    gap: 4px;
+  }
+  .fl-cart-stepper button {
+    width: 22px;
+    height: 22px;
+    font-size: 10px;
+  }
+  .fl-cart-stepper span {
+    font-size: 12px;
+    min-width: 18px;
+  }
+  .fl-cart-del-btn {
+    width: 30px;
+    height: 30px;
+    font-size: 13px;
   }
 }
 </style>

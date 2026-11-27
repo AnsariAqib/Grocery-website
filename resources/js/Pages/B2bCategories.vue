@@ -162,7 +162,6 @@
     <ContactModal :isOpen="isModalOpen" @close="isModalOpen = false" />
     <CatalogueModal :catalogue="missingCatalogue" @close="closeCatalogueModal" />
     <WhatsAppFloat />
-    <PromoPopup @openEnquiry="isModalOpen = true" />
   </div>
 </template>
 

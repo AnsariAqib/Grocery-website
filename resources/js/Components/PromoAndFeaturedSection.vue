@@ -109,7 +109,7 @@
                 </span>
               </div>
 
-              <Link href="/promotions" class="fl-mega-btn">
+              <Link href="/products" class="fl-mega-btn">
                 Shop Now <i class="fa-solid fa-arrow-right"></i>
               </Link>
             </div>
@@ -1766,8 +1766,11 @@ function addToCart(product) {
     display: none;
   }
   .fl-mandi-grid > * {
-    flex: 0 0 38%;
-    min-width: 128px;
+    flex: 0 0 40%;
+    min-width: 142px;
+  }
+  .fl-mandi-card img {
+    aspect-ratio: 9 / 16;
   }
   .fl-mandi-title {
     font-size: 22px;
@@ -2385,13 +2388,32 @@ function addToCart(product) {
     display: none;
   }
   .fl-offer-card {
-    flex: 0 0 78%;
-    min-width: 240px;
-    min-height: 126px;
-    padding: 14px;
+    flex: 0 0 88%;
+    min-width: 295px;
+    min-height: 132px;
+    padding: 14px 12px 14px 16px;
+    gap: 8px;
+  }
+  .fl-offer-badge {
+    white-space: nowrap;
+    font-size: 10.5px;
+    padding: 4px 9px;
   }
   .fl-offer-title {
     font-size: 16px;
+  }
+  .fl-offer-sub {
+    font-size: 12px;
+  }
+  .fl-offer-btn {
+    white-space: nowrap;
+    padding: 7px 14px;
+    font-size: 12px;
+  }
+  .fl-offer-art {
+    width: 96px;
+    height: 96px;
+    flex-shrink: 0;
   }
   .fl-showcase-section {
     padding: 22px 0;

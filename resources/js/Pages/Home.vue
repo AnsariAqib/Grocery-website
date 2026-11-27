@@ -15,7 +15,6 @@
     <Footer />
     <ContactModal :isOpen="isModalOpen" :prefill="inquiryPrefill" @close="isModalOpen = false" />
     <WhatsAppFloat />
-    <PromoPopup @openEnquiry="openInquiryModal(null)" />
   </div>
 </template>
 

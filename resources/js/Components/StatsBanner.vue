@@ -166,26 +166,26 @@ const stripCategories = [
   .fl-mobile-trust-bar {
     display: grid;
     grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 8px;
+    gap: 4px;
     background: #F1F9EB;
     border: 1px solid #DCECD3;
     border-radius: 12px;
-    padding: 10px 8px;
-    margin-top: 12px;
+    padding: 9px 6px;
+    margin-top: 10px;
   }
   .fl-trust-item {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 6px;
-    font-size: 10.5px;
+    gap: 5px;
+    font-size: 9.5px;
     font-weight: 700;
     line-height: 1.2;
     color: #14532D;
     text-align: left;
   }
   .fl-trust-item i {
-    font-size: 14px;
+    font-size: 13px;
     color: #3F9C1E;
     flex-shrink: 0;
   }

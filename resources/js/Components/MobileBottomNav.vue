@@ -23,10 +23,6 @@
         <i class="fa-solid fa-border-all"></i>
         <span>Categories</span>
       </Link>
-      <Link href="/promotions" class="fl-bnav-item" :class="{ active: currentPath.startsWith('/promotions') }">
-        <i class="fa-solid fa-tag"></i>
-        <span>Offers</span>
-      </Link>
       <Link href="/cart" class="fl-bnav-item fl-bnav-cart" :class="{ active: currentPath.startsWith('/cart') }">
         <span class="fl-bnav-icon-wrap">
           <i class="fa-solid fa-cart-shopping"></i>
@@ -34,10 +30,10 @@
         </span>
         <span>Cart</span>
       </Link>
-      <Link href="/about" class="fl-bnav-item" :class="{ active: currentPath.startsWith('/about') }">
+      <a href="/admin" class="fl-bnav-item" :class="{ active: currentPath.startsWith('/admin') }">
         <i class="fa-regular fa-user"></i>
         <span>Account</span>
-      </Link>
+      </a>
     </nav>
   </div>
 </template>
@@ -122,7 +118,7 @@ const currentPath = computed(() => {
 
   .fl-bottom-nav {
     display: grid;
-    grid-template-columns: repeat(5, minmax(0, 1fr));
+    grid-template-columns: repeat(4, minmax(0, 1fr));
     background: #0F3A1D;
     border-top: 1px solid rgba(255, 255, 255, 0.1);
     height: 60px;

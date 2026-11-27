@@ -2,10 +2,6 @@
   <header class="fl-header" :class="{ 'is-scrolled': isScrolled }">
     <!-- Row 1: Brand + Search + Location + Account + Cart -->
     <div class="container fl-header-top">
-      <button @click="isMobileMenuOpen = !isMobileMenuOpen" class="fl-mobile-toggle fl-mobile-toggle-left" aria-label="Toggle Menu">
-        <i class="fa-solid" :class="isMobileMenuOpen ? 'fa-xmark' : 'fa-bars'"></i>
-      </button>
-
       <Link href="/" class="fl-logo-block">
         <span class="fl-logo-wordmark">VIZORA<span class="fl-logo-dot">.</span></span>
         <span class="fl-logo-tagline">Fresh &bull; Local &bull; Organic</span>
@@ -75,7 +71,7 @@
           </span>
         </button>
 
-        <Link href="/promotions" class="fl-icon-btn fl-bell-btn" aria-label="Offers">
+        <Link href="/products" class="fl-icon-btn fl-bell-btn" aria-label="Products">
           <i class="fa-regular fa-bell"></i>
         </Link>
 
@@ -115,7 +111,6 @@
         <nav class="fl-nav-links">
           <Link href="/" class="fl-nav-link" :class="{ active: currentNav === 'home' }" @click="clickedNav = 'home'">Home</Link>
           <Link href="/categories" class="fl-nav-link" :class="{ active: currentNav === 'categories' }" @click="clickedNav = 'categories'">Categories</Link>
-          <Link href="/promotions" class="fl-nav-link" :class="{ active: currentNav === 'promotions' }" @click="clickedNav = 'promotions'">Offers</Link>
           <Link href="/products" class="fl-nav-link" :class="{ active: currentNav === 'products' }" @click="clickedNav = 'products'">New Arrivals</Link>
           <Link href="/products" class="fl-nav-link" :class="{ active: currentNav === 'b2b-categories' }" @click="clickedNav = 'b2b-categories'">Best Sellers</Link>
           <Link href="/categories" class="fl-nav-link" :class="{ active: currentNav === 'stores' }" @click="clickedNav = 'stores'">All Products</Link>

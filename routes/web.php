@@ -31,7 +31,6 @@ Route::get('/products', [ProductsController::class, 'index'])->name('products');
 // that exact path, and the slug never swallows it.
 Route::get('/products/{slug}', [ProductController::class, 'show'])->name('product');
 Route::get('/b2b-categories', [CategoriesController::class, 'b2bIndex'])->name('b2b-categories');
-Route::get('/promotions', [PromotionsController::class, 'index'])->name('promotions');
 Route::get('/contact', [ContactController::class, 'index'])->name('contact');
 Route::get('/cart', fn () => \Inertia\Inertia::render('Cart'))->name('cart');
 Route::get('/checkout', fn () => \Inertia\Inertia::render('Checkout'))->name('checkout');

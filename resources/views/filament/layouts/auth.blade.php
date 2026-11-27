@@ -245,17 +245,201 @@
                 display: none;
             }
             .auth-form-container {
+                position: relative;
                 width: 100% !important;
-                padding: 4rem 1.5rem !important;
+                padding: 2rem 1rem !important;
                 min-height: 100vh;
-                background-color: #FFFFFF !important;
+                background-color: #14532D !important;
+                background-image: url('{{ asset("assets/mega-sale-banner-bg.jpg") }}') !important;
+                background-size: cover !important;
+                background-position: center !important;
+            }
+            .auth-form-container::before {
+                content: '';
+                position: absolute;
+                inset: 0;
+                background: linear-gradient(155deg, rgba(15, 58, 29, 0.9) 0%, rgba(20, 83, 45, 0.82) 55%, rgba(63, 156, 30, 0.68) 100%);
+                z-index: 1;
+            }
+            .auth-form-wrapper {
+                position: relative;
+                z-index: 2;
+                background: rgba(255, 255, 255, 0.86);
+                -webkit-backdrop-filter: blur(18px);
+                backdrop-filter: blur(18px);
+                border: 1px solid rgba(255, 255, 255, 0.62);
+                border-radius: 24px;
+                padding: 2.75rem 1.375rem;
+                box-shadow: 0 24px 52px rgba(10, 34, 18, 0.34);
+                box-sizing: border-box;
             }
             .auth-mobile-header {
                 display: block;
+                margin-bottom: 1.5rem;
+            }
+            .auth-mobile-logo-wrapper {
+                margin-bottom: 0.75rem;
             }
             .auth-form-header {
                 display: none;
             }
+        }
+
+        /* Forgot Password & Create Account Links */
+        .auth-extra-links {
+            margin-top: 1.25rem;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(20, 83, 45, 0.12);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.65rem;
+            text-align: center;
+            font-size: 0.875rem;
+        }
+
+        .auth-link-btn {
+            background: transparent;
+            border: none;
+            padding: 0;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 0.875rem;
+            font-weight: 700;
+            color: #14532D;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .auth-link-btn:hover {
+            color: #3F9C1E;
+            text-decoration: underline;
+        }
+
+        .auth-create-row {
+            color: #475569;
+            font-weight: 500;
+        }
+
+        .auth-create-row button {
+            color: #3F9C1E;
+            margin-left: 4px;
+        }
+
+        /* Auth Helper Modal (Forgot Password / Create Account) */
+        .auth-helper-backdrop {
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            background: rgba(15, 46, 26, 0.6);
+            backdrop-filter: blur(4px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        .auth-helper-backdrop.is-open {
+            display: flex;
+        }
+
+        .auth-helper-card {
+            width: 100%;
+            max-width: 400px;
+            background: #FFFFFF;
+            border-radius: 20px;
+            padding: 1.75rem 1.5rem;
+            box-shadow: 0 24px 50px rgba(10, 34, 18, 0.28);
+            border: 1px solid #DCECD3;
+            position: relative;
+        }
+
+        .auth-helper-close {
+            position: absolute;
+            top: 14px;
+            right: 14px;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            border: 1px solid #E5ECE1;
+            background: #F4FAF0;
+            color: #14532D;
+            font-size: 16px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .auth-helper-card h3 {
+            margin: 0 0 6px;
+            font-size: 1.25rem;
+            font-weight: 800;
+            color: #14532D;
+        }
+
+        .auth-helper-card p {
+            margin: 0 0 16px;
+            font-size: 0.85rem;
+            color: #64748B;
+            line-height: 1.45;
+        }
+
+        .auth-helper-field {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            margin-bottom: 12px;
+        }
+
+        .auth-helper-field label {
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: #334155;
+        }
+
+        .auth-helper-field input {
+            height: 40px;
+            border-radius: 10px;
+            border: 1.5px solid #D5E4CE;
+            padding: 0 12px;
+            font-size: 0.875rem;
+            font-family: inherit;
+            color: #0F172A;
+            outline: none;
+        }
+
+        .auth-helper-field input:focus {
+            border-color: #3F9C1E;
+        }
+
+        .auth-helper-submit {
+            width: 100%;
+            height: 42px;
+            border: none;
+            border-radius: 9999px;
+            background: linear-gradient(135deg, #14532D 0%, #3F9C1E 100%);
+            color: #FFFFFF;
+            font-family: inherit;
+            font-size: 0.9rem;
+            font-weight: 700;
+            cursor: pointer;
+            margin-top: 4px;
+        }
+
+        .auth-helper-status {
+            margin-top: 12px;
+            padding: 10px 12px;
+            border-radius: 10px;
+            background: #EBF7E3;
+            color: #14532D;
+            font-size: 0.82rem;
+            font-weight: 600;
+            display: none;
+        }
+
+        .auth-helper-status.is-visible {
+            display: block;
         }
 
         /* RESET FILAMENT SIMPLE PAGE BOXES */
@@ -522,9 +706,71 @@
                     {{ $slot }}
                 </div>
 
+                <!-- Forgot Password & Create Account Links (Desktop + Mobile) -->
+                <div class="auth-extra-links">
+                    <button type="button" class="auth-link-btn" onclick="openAuthHelper('forgot')">
+                        Forgot Password?
+                    </button>
+                    <div class="auth-create-row">
+                        Don't have an account?
+                        <button type="button" class="auth-link-btn" onclick="openAuthHelper('register')">
+                            Create Account
+                        </button>
+                    </div>
+                </div>
+
             </div>
         </div>
 
+    </div>
+
+    <!-- Forgot Password & Create Account Modal -->
+    <div id="authHelperModal" class="auth-helper-backdrop" onclick="if(event.target===this) closeAuthHelper()">
+        <div class="auth-helper-card">
+            <button type="button" class="auth-helper-close" onclick="closeAuthHelper()" aria-label="Close">&times;</button>
+
+            <div id="authForgotPane" style="display:none;">
+                <h3>Reset Password</h3>
+                <p>Enter your registered email address and our VIZORA FOODS team will send you password reset instructions.</p>
+                <form onsubmit="submitAuthHelper(event, 'forgot')">
+                    <div class="auth-helper-field">
+                        <label>Email Address *</label>
+                        <input type="email" required placeholder="you@vizorafoods.com">
+                    </div>
+                    <button type="submit" class="auth-helper-submit">Send Reset Link</button>
+                    <div id="forgotStatus" class="auth-helper-status">
+                        Reset instructions request received! Check your email or contact VIZORA FOODS admin support.
+                    </div>
+                </form>
+            </div>
+
+            <div id="authRegisterPane" style="display:none;">
+                <h3>Create Account</h3>
+                <p>Join VIZORA FOODS to manage your orders and storefront access.</p>
+                <form onsubmit="submitAuthHelper(event, 'register')">
+                    <div class="auth-helper-field">
+                        <label>Full Name *</label>
+                        <input type="text" required placeholder="e.g. Aarav Patel">
+                    </div>
+                    <div class="auth-helper-field">
+                        <label>Email Address *</label>
+                        <input type="email" required placeholder="you@example.com">
+                    </div>
+                    <div class="auth-helper-field">
+                        <label>Mobile Number *</label>
+                        <input type="tel" required placeholder="10-digit mobile number">
+                    </div>
+                    <div class="auth-helper-field">
+                        <label>Password *</label>
+                        <input type="password" required placeholder="Create a password">
+                    </div>
+                    <button type="submit" class="auth-helper-submit">Create Account</button>
+                    <div id="registerStatus" class="auth-helper-status">
+                        Account request submitted! Our VIZORA FOODS team will activate your access shortly.
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
 
     {{-- Login button loading spinner --}}
@@ -598,5 +844,26 @@
                 });
             });
         });
+
+        function openAuthHelper(mode) {
+            const modal = document.getElementById('authHelperModal');
+            const forgot = document.getElementById('authForgotPane');
+            const reg = document.getElementById('authRegisterPane');
+            document.getElementById('forgotStatus').classList.remove('is-visible');
+            document.getElementById('registerStatus').classList.remove('is-visible');
+            forgot.style.display = mode === 'forgot' ? 'block' : 'none';
+            reg.style.display = mode === 'register' ? 'block' : 'none';
+            modal.classList.add('is-open');
+        }
+
+        function closeAuthHelper() {
+            document.getElementById('authHelperModal').classList.remove('is-open');
+        }
+
+        function submitAuthHelper(e, mode) {
+            e.preventDefault();
+            const statusId = mode === 'forgot' ? 'forgotStatus' : 'registerStatus';
+            document.getElementById(statusId).classList.add('is-visible');
+        }
     </script>
 </x-filament-panels::layout.base>

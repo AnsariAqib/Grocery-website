@@ -19,13 +19,30 @@
 
         <!-- 2-Column Shop Layout: Left Filter Sidebar + Right Product Grid -->
         <div class="fl-shop-layout">
-          <!-- LEFT SIDEBAR -->
-          <aside class="fl-filter-sidebar">
+          <!-- Mobile Backdrop -->
+          <div
+            v-if="isMobileFilterOpen"
+            class="fl-filter-backdrop"
+            @click="isMobileFilterOpen = false"
+          ></div>
+
+          <!-- LEFT SIDEBAR (Slide-over Drawer on Mobile) -->
+          <aside class="fl-filter-sidebar" :class="{ 'is-mobile-open': isMobileFilterOpen }">
             <div class="fl-filter-head">
               <h2>Filter Products</h2>
-              <button v-if="activeFilters.length" type="button" class="fl-clear-link" @click="resetSearch">
-                Clear All
-              </button>
+              <div class="fl-filter-head-actions">
+                <button v-if="activeFilters.length" type="button" class="fl-clear-link" @click="resetSearch">
+                  Clear All
+                </button>
+                <button
+                  type="button"
+                  class="fl-filter-close-btn"
+                  aria-label="Close filters"
+                  @click="isMobileFilterOpen = false"
+                >
+                  <i class="fa-solid fa-xmark"></i>
+                </button>
+              </div>
             </div>
 
             <!-- Categories -->
@@ -163,6 +180,13 @@
                 </label>
               </div>
             </div>
+
+            <!-- Mobile Apply Bar -->
+            <div class="fl-filter-apply-bar">
+              <button type="button" class="fl-filter-apply-btn" @click="applyMobileFilters">
+                Apply Filters ({{ filteredProducts.length }} Products)
+              </button>
+            </div>
           </aside>
 
           <!-- RIGHT MAIN AREA (NO TOP BANNER IMAGE) -->
@@ -190,6 +214,16 @@
               </div>
 
               <div class="fl-toolbar-right">
+                <button
+                  type="button"
+                  class="fl-mobile-filter-btn"
+                  @click="isMobileFilterOpen = true"
+                >
+                  <i class="fa-solid fa-sliders"></i>
+                  <span>Filter</span>
+                  <span v-if="activeFilters.length" class="fl-mfilter-count">{{ activeFilters.length }}</span>
+                </button>
+
                 <div class="fl-sort-box">
                   <span>Sort by:</span>
                   <select v-model="sortBy" class="fl-sort-select" aria-label="Sort products">
@@ -352,7 +386,6 @@
     <ContactModal :isOpen="isModalOpen" :prefill="inquiryPrefill" @close="isModalOpen = false" />
     <CatalogueModal :catalogue="missingCatalogue" @close="closeCatalogueModal" />
     <WhatsAppFloat />
-    <PromoPopup @openEnquiry="openBlankModal" />
   </div>
 </template>
 
@@ -376,6 +409,14 @@ import { useCustomAlert } from '@/composables/useCustomAlert';
 const { addItem } = useCart();
 const { showSuccess } = useCustomAlert();
 const addedCardId = ref(null);
+const isMobileFilterOpen = ref(false);
+
+function applyMobileFilters() {
+  isMobileFilterOpen.value = false;
+  nextTick(() => {
+    gridTopRef.value?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+}
 
 const props = defineProps({
   products: Array,
@@ -1695,6 +1736,19 @@ onMounted(() => {
   padding: 0 4px;
 }
 
+.fl-filter-backdrop,
+.fl-filter-close-btn,
+.fl-filter-apply-bar,
+.fl-mobile-filter-btn {
+  display: none;
+}
+
+.fl-filter-head-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
 @media (max-width: 1120px) {
   .fl-shop-grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -1705,17 +1759,157 @@ onMounted(() => {
   .fl-shop-layout {
     grid-template-columns: 1fr;
   }
+  .fl-filter-backdrop {
+    display: block;
+    position: fixed;
+    inset: 0;
+    background: rgba(15, 46, 26, 0.5);
+    backdrop-filter: blur(2px);
+    z-index: 1050;
+  }
   .fl-filter-sidebar {
-    position: static;
+    display: none;
+    position: fixed;
+    left: 12px;
+    right: 12px;
+    bottom: 12px;
+    top: 10%;
+    z-index: 1060;
+    background: #FFFFFF;
+    border-radius: 20px;
+    padding: 20px 20px 88px;
+    overflow-y: auto;
+    box-shadow: 0 14px 40px rgba(15, 46, 26, 0.24);
+    border: 1px solid #DCECD3;
+  }
+  .fl-filter-sidebar.is-mobile-open {
+    display: block;
+  }
+  .fl-filter-close-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: 1px solid #DCECD3;
+    background: #F4FAF0;
+    color: #14532D;
+    cursor: pointer;
+  }
+  .fl-filter-apply-bar {
+    display: block;
+    position: fixed;
+    left: 12px;
+    right: 12px;
+    bottom: 12px;
+    z-index: 1070;
+    background: #FFFFFF;
+    padding: 14px 20px;
+    border-top: 1px solid #E5ECE1;
+    border-radius: 0 0 20px 20px;
+    box-shadow: 0 -4px 14px rgba(20, 83, 45, 0.08);
+  }
+  .fl-filter-apply-btn {
+    width: 100%;
+    height: 44px;
+    border: none;
+    border-radius: 9999px;
+    background: #14532D;
+    color: #FFFFFF;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+  }
+  .fl-mobile-filter-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    height: 38px;
+    padding: 0 14px;
+    border-radius: 9999px;
+    border: 1.5px solid #14532D;
+    background: #EBF7E3;
+    color: #14532D;
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    flex-shrink: 0;
+  }
+  .fl-mfilter-count {
+    background: #14532D;
+    color: #FFFFFF;
+    font-size: 10.5px;
+    font-weight: 800;
+    min-width: 18px;
+    height: 18px;
+    border-radius: 9999px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 5px;
   }
   .fl-shop-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
   }
 }
 
-@media (max-width: 540px) {
+@media (max-width: 640px) {
+  .fl-shop-main {
+    padding: 14px 0 36px;
+  }
+  .fl-shop-toolbar {
+    gap: 10px;
+    margin-bottom: 14px;
+  }
   .fl-shop-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+  }
+  .fl-shop-card {
+    padding: 8px;
+    border-radius: 12px;
+    min-width: 0;
+  }
+  .fl-shop-img-box {
+    height: 128px;
+    padding: 8px;
+  }
+  .fl-shop-badge {
+    font-size: 9.5px;
+    padding: 3px 7px;
+  }
+  .fl-shop-cart-btn {
+    height: 34px;
+    font-size: 12px;
+    border-radius: 8px;
+  }
+  .fl-shop-title {
+    font-size: 20px;
+  }
+  .fl-toolbar-right {
+    width: 100%;
+    justify-content: space-between;
+    gap: 8px;
+  }
+  .fl-sort-box {
+    flex: 1;
+    min-width: 0;
+  }
+  .fl-sort-box span {
+    display: none;
+  }
+  .fl-sort-select {
+    width: 100%;
+    height: 38px;
+    padding: 0 10px;
+    font-size: 12.5px;
+  }
+  .fl-view-toggles {
+    display: none;
   }
 }
 </style>

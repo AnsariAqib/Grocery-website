@@ -69,6 +69,13 @@
           <div class="fl-pd-info">
             <span class="fl-pd-tag">{{ product.badge || 'Farm Fresh' }}</span>
 
+            <div class="fl-pd-price-row">
+              <span class="fl-pd-price">
+                {{ needsPrice ? 'Price on Request' : activePrice }}
+              </span>
+              <span v-if="activePack" class="fl-pd-pack-pill">{{ activePack }}</span>
+            </div>
+
             <h1 class="fl-pd-title">{{ product.name }}</h1>
 
             <p v-if="product.description" class="fl-pd-desc">{{ product.description }}</p>
@@ -83,13 +90,6 @@
                 <i class="fa-solid fa-circle-check"></i>
                 {{ brandLabel || 'Trusted VIZORA Quality' }}
               </span>
-            </div>
-
-            <div class="fl-pd-price-row">
-              <span class="fl-pd-price">
-                {{ needsPrice ? 'Price on Request' : activePrice }}
-              </span>
-              <span v-if="activePack" class="fl-pd-pack-pill">{{ activePack }}</span>
             </div>
 
             <!-- Weight / Pack Size Selector -->
@@ -1053,6 +1053,10 @@ onUnmounted(() => {
   gap: 12px;
   text-decoration: none;
   border: 1px solid #E8F0E3;
+  min-width: 0;
+  max-width: 100%;
+  box-sizing: border-box;
+  overflow: hidden;
   transition: transform 0.2s ease, border-color 0.2s ease;
 }
 
@@ -1136,6 +1140,18 @@ onUnmounted(() => {
   .fl-pd-stacked-sections {
     grid-template-columns: 1fr;
   }
+  .fl-pd-left-col {
+    display: contents;
+  }
+  .fl-pd-gallery {
+    order: 1;
+  }
+  .fl-pd-info {
+    order: 2;
+  }
+  .fl-pd-left-desc {
+    order: 3;
+  }
   .fl-pd-main-frame {
     height: 420px;
     min-height: 0;
@@ -1146,15 +1162,27 @@ onUnmounted(() => {
 }
 
 @media (max-width: 600px) {
+  .fl-pd-main {
+    padding: 14px 0 36px;
+  }
   .fl-pd-gallery {
     flex-direction: column-reverse;
+  }
+  .fl-pd-main-frame {
+    height: 280px;
   }
   .fl-pd-thumbs-left {
     flex-direction: row;
     width: 100%;
   }
+  .fl-pd-related-box {
+    padding: 16px 14px;
+    border-radius: 14px;
+    overflow: hidden;
+  }
   .fl-pd-related-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 10px;
   }
 }
 </style>

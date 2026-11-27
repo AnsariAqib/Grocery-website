@@ -173,6 +173,22 @@
             </button>
           </aside>
         </form>
+
+        <!-- Bottom 3-Column Trust Strip (matching Cart page) -->
+        <div class="fl-co-trust-strip">
+          <div class="fl-trust-item">
+            <i class="fa-solid fa-leaf"></i>
+            <span>Farm Fresh<br>Produce</span>
+          </div>
+          <div class="fl-trust-item">
+            <i class="fa-solid fa-truck-fast"></i>
+            <span>Reliable<br>Delivery</span>
+          </div>
+          <div class="fl-trust-item">
+            <i class="fa-solid fa-shield-halved"></i>
+            <span>Safe &amp;<br>Quality Assured</span>
+          </div>
+        </div>
       </div>
     </main>
 
@@ -643,9 +659,40 @@ function placeOrder() {
   flex-wrap: wrap;
 }
 
+.fl-co-trust-strip {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin-top: 28px;
+  padding-top: 20px;
+  border-top: 1px solid #DCECD3;
+}
+
+.fl-trust-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 6px;
+  padding: 6px 8px;
+  font-size: 12.5px;
+  font-weight: 700;
+  line-height: 1.3;
+  color: #124E26;
+}
+
+.fl-trust-item + .fl-trust-item {
+  border-left: 1px solid #DCECD3;
+}
+
+.fl-trust-item i {
+  font-size: 20px;
+  color: #3F9C1E;
+}
+
 @media (max-width: 960px) {
   .fl-co-grid {
     grid-template-columns: 1fr;
+    gap: 18px;
   }
   .fl-co-summary-card {
     position: static;
@@ -653,9 +700,44 @@ function placeOrder() {
 }
 
 @media (max-width: 640px) {
+  .fl-co-main {
+    padding: 18px 0 28px;
+  }
+  .fl-co-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+    margin-bottom: 16px;
+  }
+  .fl-co-title {
+    font-size: 22px;
+  }
+  .fl-co-head-icon {
+    font-size: 19px;
+  }
+  .fl-co-card,
+  .fl-co-summary-card {
+    padding: 16px 15px;
+    border-radius: 14px;
+  }
+  .fl-co-card-head {
+    margin-bottom: 14px;
+    gap: 10px;
+  }
+  .fl-co-card-head h2 {
+    font-size: 16px;
+  }
   .fl-form-grid,
   .fl-slot-grid {
     grid-template-columns: 1fr;
+    gap: 11px;
+  }
+  .fl-slot-pill,
+  .fl-pay-option {
+    padding: 11px 12px;
+  }
+  .fl-trust-item {
+    font-size: 11.5px;
   }
 }
 </style>

@@ -1035,11 +1035,7 @@ img {
     gap: 10px 10px;
   }
   .fl-mobile-toggle {
-    display: inline-flex;
-    color: #FFFFFF;
-    padding: 0;
-    margin-right: 4px;
-    order: 0;
+    display: none !important;
   }
   .fl-logo-block {
     order: 1;
@@ -1079,6 +1075,10 @@ img {
     height: 40px;
     padding: 3px 4px 3px 14px;
     border-color: transparent;
+  }
+  .fl-search-input {
+    min-width: 0;
+    font-size: 12.5px;
   }
   .fl-search-btn {
     height: 32px;

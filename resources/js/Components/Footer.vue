@@ -45,7 +45,7 @@
           <h4 class="fl-footer-heading">Shop</h4>
           <ul class="fl-footer-links">
             <li><Link href="/categories">All Categories</Link></li>
-            <li><Link href="/promotions">Offers &amp; Deals</Link></li>
+            <li><Link href="/products">Shop Products</Link></li>
             <li><Link href="/products">New Arrivals</Link></li>
             <li><Link href="/products">Best Sellers</Link></li>
           </ul>
